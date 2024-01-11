@@ -1,0 +1,103 @@
+/* ----------------------------------------------- *\
+    Form
+\* ----------------------------------------------- */
+form {
+    width: 100%;
+
+    &.form-contact {
+        // 
+
+        input, textarea {
+            color: var(--c-white);
+        }
+    }
+    
+    .form-field {
+        flex: 1;
+        display: flex;
+        line-height: 30px;
+        flex-direction: column;
+
+        &:not(:last-child) {
+            margin-bottom: 10px;
+        }
+
+        label {
+            gap: 5px;
+            display: flex;
+            padding-bottom: 5px;
+
+            &[for] {
+                font-weight: 700;
+            }
+
+            span {
+                margin: auto 0;
+            }
+        }
+
+        input:not([type="file"]) {
+            height: 35px;
+            padding: 0 20px;
+            border-radius: 25px;
+            background-color: transparent;
+            border: 1px solid var(--c-silver);
+        }
+
+        input:disabled {
+            background-color: var(--c-silver);
+        }
+
+        textarea {
+            height: 80px;
+            padding: 20px;
+            resize: vertical;
+            border-radius: 25px;
+            background-color: transparent;
+            border: 1px solid var(--c-silver);
+        }
+
+        select {
+            height: 35px;
+            padding: 0 15px;
+            border-radius: 25px;
+            background-color: transparent;
+            border: 1px solid var(--c-silver);
+
+            &[multiple] {
+                height: 150px;
+                scrollbar-width: none;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .form-field-inline {
+        gap: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+        flex-direction: row;
+
+        .field {
+            flex: 1;
+            border: 1px solid var(--c-silver);
+            border-radius: 0% !important;
+        }
+
+        .form-field {
+            margin-bottom: 0;
+        }
+    }
+
+    .form-button {
+        text-align: right;
+
+        .btn:not(:first-child) {
+            margin-left: 10px;
+        }
+    }
+}

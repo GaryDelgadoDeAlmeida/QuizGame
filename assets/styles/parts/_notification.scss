@@ -1,0 +1,55 @@
+/* ----------------------------------------------- *\
+    Notification
+\* ----------------------------------------------- */
+.notification {
+    padding: 15px;
+    display: flex;
+    text-align: left;
+    margin-bottom: 25px;
+
+    &.success {
+        color: var(--c-green);
+        background-color: var(--c-lightGreen);
+        border-left: 5px solid var(--c-greenLime);
+    }
+
+    &.warning {
+        color: var(--c-orange);
+        background-color: var(--c-lightOrange);
+        border-left: 5px solid var(--c-orange);
+    }
+
+    &.danger {
+        color: var(--c-darkRed);
+        background-color: var(--c-lightRed);
+        border-left: 5px solid var(--c-darkRed);
+    }
+
+    &.information {
+        color: var(--c-dimmGray);
+        background-color: var(--c-lightGray);
+        border-left: 5px solid var(--c-dimmGray);
+    }
+
+    .icon {
+        margin: auto 0;
+
+        img {
+            height: 35px;
+            vertical-align: middle;
+            background-size: cover;
+        }
+    }
+
+    .message {
+        flex: 1;
+        margin: auto 0;
+        padding-left: 5px;
+
+        span {
+            font-size: 1rem;
+            font-weight: 500;
+            word-break: break-all;
+        }
+    }
+}

@@ -1,0 +1,71 @@
+import axios from "axios";
+import React, { useRef, useState } from "react";
+import Notification from "../parts/Notification";
+import { Navigate } from "react-router-dom";
+
+export default function LoginForm({adminConnect}) {
+
+    const [logged, setLogged] = useState(false)
+    const [formResponse, setFormResponse] = useState({})
+    let credentials = useRef({
+        email: "",
+        passowrd: ""
+    })
+
+    const handleChange = (e, fieldName) => {
+        credentials.current = {
+            ...credentials.current,
+            [fieldName]: e.target.value
+        }
+    }
+    
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        axios
+            .post(`${window.location.origin}/api/login_check`, credentials.current, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json+ld"
+                }
+            })
+            .then((response) => {
+                localStorage.setItem("token", response.data.token)
+                setLogged(true)
+            })
+            .catch((error) => {
+                let errorMessage = "An error has been encountered"
+                if(error.response.data) {
+                    errorMessage = error.response.data
+                }
+
+                setFormResponse({classname: "danger", message: errorMessage})
+            })
+        ;
+    }
+
+    return (
+        <>
+            {logged && (
+                <Navigate to={adminConnect ? "/admin" : "/user"} />
+            )}
+
+            <form className={"form"} onSubmit={(e) => handleSubmit(e)}>
+                {Object.keys(formResponse).length > 0 && (
+                    <Notification {...formResponse} />
+                )}
+                <div className={"form-field"}>
+                    <label htmlFor={"email"}>Username</label>
+                    <input id={"email"} type={"email"} placeholder={"Your email"} onChange={(e) => handleChange(e, "email")} required />
+                </div>
+                <div className={"form-field"}>
+                    <label htmlFor={"password"}>Password</label>
+                    <input id={"password"} type={"password"} placeholder={"Your Password"} onChange={(e) => handleChange(e, "password")} required />
+                </div>
+                <div className={"form-button"}>
+                    <button type={"submit"} className={"btn btn-blue"}>Submit</button>
+                </div>
+            </form>
+        </>
+    )
+}

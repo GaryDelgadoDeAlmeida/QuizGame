@@ -1,0 +1,55 @@
+:root {
+    
+    --c-white: #ffffff;
+    --c-dimmGray: #696969;
+    --c-lightGray: #f2f2f2;
+    --c-silver: #c8c8c8;
+    // --c-lightGray: #f0f2f5;
+    --c-red: #c00000;
+    --c-darkRed: #8B0000;
+    --c-lightRed: #ffe0e3;
+    --c-green: #188038;
+    --c-lightGreen: #a8f1c6;
+    --c-greenLime: #198344;
+    --c-orange: #ffa500;
+    --c-lightOrange: #fff9f0;
+    --c-blue: #2962ff;
+    --c-black: #000000;
+}
+
+@mixin desktop {
+    @media screen and (min-width: 992px) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media screen and (max-width: 991px) {
+        @content;
+    }
+}
+  
+@mixin mobile {
+    @media screen and (max-width: 768px) {
+        @content;
+    }
+}
+  
+@mixin tiny_mobile {
+    @media screen and (max-width: 480px) {
+        @content;
+    }
+}
+
+@import "./parts/site";
+@import "./parts/site_user";
+@import "./parts/site_admin";
+@import "./parts/badge";
+@import "./parts/button";
+@import "./parts/card";
+@import "./parts/card_rule";
+@import "./parts/form";
+@import "./parts/helper";
+@import "./parts/notification";
+@import "./parts/table";
+@import "./parts/pagination";

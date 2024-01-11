@@ -1,0 +1,114 @@
+/* ----------------------------------------------- *\
+    Table
+\* ----------------------------------------------- */
+.table {
+    width: 100%;
+
+    thead {
+        background-color: darkblue;
+
+        @include tablet {
+            display: none;
+        }
+
+        tr {
+            text-align: center;
+            color: var(--c-white);
+
+            th {
+                padding: 10px 0;
+            }
+        }
+    }
+
+    tbody {
+        text-align: center;
+
+        tr {
+            min-height: 50px;
+            background-color: var(--c-white);
+
+            &:nth-child(even) {
+                background-color: var(--c-lightGray);
+            }
+
+            &:hover {
+                background-color: var(--c-silver);
+            }
+
+            @include tablet {
+                padding: 25px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                background-color: var(--c-white);
+            }
+
+            td {
+                padding: 10px;
+                position: relative;
+
+                // Quiz - Question
+                &.-question {
+                    text-align: left;
+
+                    @include desktop {
+                        width: 300px;
+                    }
+                }
+
+                // Common
+                &.-actions .btn:not(:last-child) {
+                    margin-right: 5px;
+                }
+
+                @include tablet {
+                    text-align: left;
+                    width: fit-content;
+                    padding-left: 100px;
+
+                    &:not(:last-child) {
+                        margin-bottom: 15px;
+                    }
+
+                    &::before {
+                        left: 0;
+                        position: absolute;
+                        color: var(--c-dimmGray);
+                    }
+
+                    // Quiz - Questio
+                    &.-question::before {
+                        content: "Question";
+                    }
+
+                    &.-category::before {
+                        content: "Category";
+                    }
+
+                    &.-answers::before {
+                        content: "Answers";
+                    }
+
+                    // User
+                    &.-username::before {
+                        content: "Username";
+                    }
+
+                    &.-role::before {
+                        content: "Role";
+                    }
+
+                    // Common
+                    &.-message::before {
+                        content: "Message";
+                    }
+
+                    &.-actions::before {
+                        content: "Action";
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,113 @@
+/* ----------------------------------------------- *\
+    Button
+\* ----------------------------------------------- */
+button {
+    cursor: pointer;
+}
+
+.btn {
+    font-size: 1rem;
+    font-weight: 400;
+    padding: 5px 1rem;
+    user-select: none;
+    text-align: center;
+    white-space: nowrap;
+    text-decoration: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    border: 1px solid transparent;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+    &.-inline-flex {
+        gap: 10px;
+        display: inline-flex;
+
+        span {
+            margin: auto 0;
+        }
+    
+        img {
+            height: 25px;
+        }
+    }
+
+    &.btn-sm {
+        padding: 5px;
+        margin: auto 0;
+        font-size: .8rem;
+
+        img {
+            height: 15px;
+        }
+    }
+    
+    &.btn-blue {
+        color: var(--c-white);
+        border-color: var(--c-blue);
+        background-color: var(--c-blue);
+
+        &:hover {
+            color: var(--c-blue);
+            background-color: transparent;
+        }
+    }
+
+    &.btn-radient-blue {
+        font-weight: 600;
+        padding: 10px 2rem;
+        letter-spacing: 2px;
+        color: var(--c-white);
+        text-transform: uppercase;
+        background: linear-gradient(to right, #1358FF 20%, #1FA3EF 80%);
+    }
+
+    &.btn-green {
+        color: var(--c-white);
+        border: 1px solid var(--c-green);
+        background-color: var(--c-green);
+    
+        &:hover {
+            color: var(--c-green);
+            background-color: transparent;
+        }
+    }
+
+    &.btn-red {
+        color: var(--c-white);
+        border: 1px solid var(--c-red);
+        background-color: var(--c-red);
+
+        &:hover {
+            color: var(--c-red);
+            background-color: transparent;
+        }
+    }
+
+    &.btn-orange {
+        color: var(--c-black);
+        border: 1px solid var(--c-orange);
+        background-color: var(--c-orange);
+    
+        &:hover {
+            color: var(--c-orange);
+            background-color: transparent;
+        }
+    }
+
+    &.btn-grey {
+        color: var(--c-white);
+        border: 1px solid var(--c-gray);
+        background-color: var(--c-gray);
+    
+        &:hover {
+            color: var(--c-gray);
+            background-color: transparent;
+        }
+    }
+
+    &.btn-rounded {
+        border-radius: 25px;
+    }
+}

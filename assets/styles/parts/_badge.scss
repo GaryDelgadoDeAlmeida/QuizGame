@@ -1,0 +1,35 @@
+.badge-list {
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.badge {
+    list-style: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+    text-transform: uppercase;
+
+    &.badge-information {
+        color: var(--c-black);
+        background-color: var(--c-lightGray);
+    }
+
+    &.badge-success {
+        color: var(--c-white);
+        background-color: var(--c-greenLime);
+    }
+
+    &.badge-warning {
+        color: var(--c-white);
+        background-color: var(--c-orange);
+    }
+
+    &.badge-danger {
+        color: var(--c-white);
+        background-color: var(--c-red);
+    }
+}

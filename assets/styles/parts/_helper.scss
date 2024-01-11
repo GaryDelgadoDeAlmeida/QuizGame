@@ -1,0 +1,258 @@
+/* ---------------------------------------- *\
+    Width
+\* ---------------------------------------- */
+.w-100px {
+    width: 100px;
+    margin-bottom: 10px;
+}
+
+.w-150px {
+    width: 150px;
+}
+
+.w-200px {
+    width: 200px;
+}
+
+.w-250px {
+    width: 250px;
+    margin-bottom: 10px;
+}
+
+.w-500px {
+    width: 500px;
+    margin-bottom: 10px;
+}
+
+.w-33 {
+    width: calc(100% / 3);
+}
+
+.w-50 {
+    width: 50%;
+}
+
+.w-66 {
+    width: calc(2* (100% / 3));
+}
+
+.w-100 {
+    width: 100% !important;
+}
+
+
+/* ---------------------------------------- *\
+    Height
+\* ---------------------------------------- */
+.h-30px {
+    height: 30px !important;
+}
+
+.h-40px {
+    height: 40px;
+}
+
+.h-100px {
+    height: 100px;
+}
+
+.h-150px {
+    margin-bottom: 10px;
+    height: 150px !important;
+}
+
+.h-180px {
+    height: 180px;
+}
+
+.h-100 {
+    height: 100%;
+}
+
+.h-100vh {
+    height: 100vh;
+}
+
+.mh-100vh {
+    min-height: 100vh;
+}
+
+/* ---------------------------------------- *\
+    Margin
+\* ---------------------------------------- */
+.m-auto {
+    margin: auto;
+}
+
+.ml-15 {
+    margin-left: 15px;
+}
+
+.mt-15 {
+    margin-top: 15px;
+}
+
+.mt-25 {
+    margin-top: 25px;
+}
+
+.mb-15 {
+    margin-bottom: 15px;
+}
+
+/* ---------------------------------------- *\
+    Padding
+\* ---------------------------------------- */
+.p-0 {
+    padding: 0 !important;
+}
+
+.p-l-0 {
+    padding-left: 0 !important;
+}
+
+.p-l-10 {
+    padding-left: 10px;
+}
+
+.pt-15 {
+    padding-top: 15px;
+}
+
+
+/* ----------------------------------------------- *\
+    Background
+\* ----------------------------------------------- */
+.bg-transparent {
+    background-color: transparent;
+}
+
+.bg-white {
+    background-color: var(--c-white);
+}
+
+.bg-black {
+    background-color: rgba(0, 0, 0, 0.85) !important;
+}
+
+
+/* ---------------------------------------- *\
+    Texte
+\* ---------------------------------------- */
+.txt-left {
+    text-align: left;
+}
+
+.txt-right {
+    text-align: right;
+}
+
+.txt-center {
+    text-align: center;
+}
+
+.txt-uppercase {
+    text-transform: uppercase;
+}
+
+.txt-bold {
+    font-weight: 700;
+}
+
+.f-left {
+    float: left;
+}
+
+.f-right {
+    float: right;
+}
+
+.jc-center {
+    justify-content: center;
+}
+
+@include tablet {
+    .-t-jc-left {
+        justify-content: left;
+    }
+}
+
+
+/* ---------------------------------------- *\
+    Border radius
+\* ---------------------------------------- */
+.no-radius {
+    border-radius: 0 !important;
+}
+
+/* ---------------------------------------- *\
+    Display
+\* ---------------------------------------- */
+.d-hidden {
+    display: none;
+}
+
+.d-column {
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.d-flex {
+    display: flex;
+
+    @include tablet {
+        flex-wrap: wrap;
+    }
+
+    @include tiny_mobile {
+        flex-direction: column;
+    }
+
+    .item-row {
+        flex: 1 1 45%;
+    }
+}
+
+.d-grid {
+    display: grid;
+    grid-gap: 15px;
+
+    @include desktop {
+        &.-col-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    
+        &.-col-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @include tablet {
+        &.-t-col-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        &.-t-col-1 {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+
+    @include mobile {
+        &.-col-1 {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+}
+
+.-g-5 {
+    gap: 5px;
+}
+
+.-g-10 {
+    gap: 10px;
+}
+
+.-g-15 {
+    gap: 15px;
+}

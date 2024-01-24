@@ -21,7 +21,7 @@
         width: 250px;
         height: 100%;
         position: fixed;
-        background-color: var(--c-black);
+        background-color: var(--c-palette-one);
 
         @include tablet {
             display: none;
@@ -51,7 +51,7 @@
 
                     &:hover {
                         transition: .3s;
-                        background-color: var(--c-blue);
+                        background-color: var(--c-palette-four);
                     }
                 }
 
@@ -80,7 +80,7 @@
             z-index: 2;
             padding: 25px;
             position: relative;
-            background-color: var(--c-white);
+            background-color: var(--c-palette-one);
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.17);
 
             @include desktop {
@@ -110,7 +110,7 @@
                 height: 100%;
                 position: fixed;
                 transition: .5s;
-                background-color: var(--c-black);
+                background-color: var(--c-palette-one);
 
                 .mobile-menu-widget {
                     padding: 25px;
@@ -135,7 +135,7 @@
                                 &:hover {
                                     transition: .3s;
                                     color: var(--c-color);
-                                    background-color: var(--c-blue);
+                                    background-color: var(--c-palette-four);
                                 }
                             }
             

@@ -1,5 +1,12 @@
 :root {
-    
+    // Palette
+    --c-palette-one: #0b162c;
+    --c-palette-two: #1c2942;
+    --c-palette-three: #3b556d;
+    --c-palette-four: #5fc2ba;
+    --c-palette-five: var(--c-white);
+
+    // Colors
     --c-white: #ffffff;
     --c-dimmGray: #696969;
     --c-lightGray: #f2f2f2;
@@ -47,9 +54,13 @@
 @import "./parts/badge";
 @import "./parts/button";
 @import "./parts/card";
-@import "./parts/card_rule";
+@import "./parts/card_category";
+@import "./parts/card_widget";
 @import "./parts/form";
 @import "./parts/helper";
 @import "./parts/notification";
 @import "./parts/table";
 @import "./parts/pagination";
+@import "./parts/popup";
+@import "./parts/quiz";
+@import "./parts/profile";

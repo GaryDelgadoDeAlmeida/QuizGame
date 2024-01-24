@@ -10,8 +10,9 @@ import NotFound from "./anonymous/NotFound";
 // User
 import UserHome from "./user/Home";
 import UserProfile from "./user/Profile";
-import UserGame from "./user/Game";
 import UserBestScore from "./user/BestScore";
+import UserGame from "./user/Game";
+import UserCompetition from "./user/Competition";
 
 // User
 import AdminHome from "./admin/Home";
@@ -22,6 +23,8 @@ import AdminUserEdit from "./admin/UserEdit";
 import AdminQuiz from "./admin/Quiz";
 import AdminQuizForm from "./admin/QuizForm";
 import AdminHistoryGame from "./admin/HistoryGame";
+import AdminContact from "./admin/Contact";
+import AdminContactDetail from "./admin/ContactDetail";
 
 export default function RouteConfig() {
 
@@ -34,13 +37,14 @@ export default function RouteConfig() {
                 <Route path={"/"} element={<Home />} />
                 <Route path={"/register"} element={<Register />} />
                 <Route path={"/login"} element={<Login />} />
-                <Route path={"/login-admin"} element={<Login admin={true} />} />
+                <Route path={"/admin-login"} element={<Login admin={true} />} />
 
                 {/* User */}
                 <Route path={"/user"} element={<UserHome />} />
                 <Route path={"/user/profile"} element={<UserProfile />} />
-                <Route path={"/user/game"} element={<UserGame />} />
                 <Route path={"/user/best-score"} element={<UserBestScore />} />
+                <Route path={"/user/game"} element={<UserGame />} />
+                <Route path={"/user/competition"} element={<UserCompetition />} />
                 
                 {/* Admin */}
                 <Route path={"/admin"} element={<AdminHome />} />
@@ -51,6 +55,8 @@ export default function RouteConfig() {
                 <Route path={"/admin/history-games"} element={<AdminHistoryGame />} />
                 <Route path={"/admin/quiz"} element={<AdminQuiz />} />
                 <Route path={"/admin/quiz/:quizID"} element={<AdminQuizForm />} />
+                <Route path={"/admin/contact"} element={<AdminContact />} />
+                <Route path={"/admin/contact/:contactID"} element={<AdminContactDetail />} />
 
                 {/* Common */}
                 <Route path={"*"} element={<NotFound />} />

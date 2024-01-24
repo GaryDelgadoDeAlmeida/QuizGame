@@ -2,7 +2,49 @@
     Table
 \* ----------------------------------------------- */
 .table {
+    margin: 0;
+    padding: 0;
     width: 100%;
+    overflow: hidden;
+    border-radius: 0;
+    position: relative;
+    border-collapse: collapse;
+
+    &.-palette-one {
+        color: var(--c-white);
+
+        thead {
+            text-align: center;
+            background-color: var(--c-palette-one);
+
+            tr {
+                height: 45px;
+                color: var(--c-palette-four);
+            }
+        }
+
+        tbody tr {
+            height: 45px;
+            background-color: var(--c-palette-three);
+
+            &:nth-child(even) {
+                background-color: var(--c-palette-one);
+            }
+
+            &:hover {
+                transition: .3s;
+                color: var(--c-palette-four);
+                background-color: var(--c-palette-two);
+            }
+
+            td::before {
+                left: 0;
+                font-weight: 600;
+                position: absolute;
+                color: var(--c-white);
+            }
+        }
+    }
 
     thead {
         background-color: darkblue;

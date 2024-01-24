@@ -13,7 +13,7 @@ export default function Users() {
 
     useEffect(() => {
         load()
-    }, [])
+    }, [offset])
 
     const handlePagination = (e) => {
         let newOffset = parseInt(e.target.innerHTML)
@@ -38,10 +38,17 @@ export default function Users() {
         axios
             .delete(`${window.location.origin}/api/user/${userID}/remove`)
             .then((response) => {
-                rowItem.remove()
+                if(response.status == 202) {
+                    rowItem.remove()
+                }
             })
             .catch((error) => {
-                alert("The user couldn't be removed. Please, retry later")
+                let errorMessage = "The user couldn't be removed. Please, retry later"
+                if(error.response.detail) {
+                    errorMessage = error.response.detail
+                }
+                
+                alert(errorMessage)
             })
         ;
     }
@@ -61,7 +68,7 @@ export default function Users() {
                     </thead>
                     <tbody>
                         {!loading ? (
-                            Object.keys(users).length > 0 ? (
+                            Object.keys(users.data ?? []).length > 0 ? (
                                 Object.values(users.data).map((user, index) => (
                                     <tr className={"-row-item"} key={index}>
                                         <td className={"-username"}>{user.email}</td>

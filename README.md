@@ -2,7 +2,11 @@
 
 A quiz app allows users to take multiple-choice quizzes on various topics. You can create your own quizzes or use an API like <a href="https://opentdb.com/api_config.php?ref=altcademy.com" target="_blank">Open Trivia API</a> to fetch quiz questions. Your app should display the quiz questions one at a time, with the user selecting an answer before moving on to the next question. At the end of the quiz, the user should see their score and have the option to retake the quiz.
 
-By building a quiz app, you'll: - Practice managing state in a React app, as you'll need to keep track of the user's answers and score. - Learn how to create interactive components, like buttons and timers.
+By building a quiz app, you'll: 
+- Practice managing state in a React app, as you'll need to keep track of the user's answers and score. 
+- Learn how to create interactive components, like buttons and timers.
+
+This application has been build using <a href="https://symfony.com/" target="_blank">Symfony</a> (for backend) and <a href="https://fr.react.dev/" target="_blank">React</a> (for frontend).
 
 ## QUIZ API (possible)
 

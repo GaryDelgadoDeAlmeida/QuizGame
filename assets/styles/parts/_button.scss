@@ -42,7 +42,16 @@ button {
             height: 15px;
         }
     }
+
+    &.btn-space {
+        padding: 10px 1rem;
+    }
+
+    &.btn-rounded {
+        border-radius: 25px;
+    }
     
+    // Button to access other pages
     &.btn-blue {
         color: var(--c-white);
         border-color: var(--c-blue);
@@ -54,15 +63,7 @@ button {
         }
     }
 
-    &.btn-radient-blue {
-        font-weight: 600;
-        padding: 10px 2rem;
-        letter-spacing: 2px;
-        color: var(--c-white);
-        text-transform: uppercase;
-        background: linear-gradient(to right, #1358FF 20%, #1FA3EF 80%);
-    }
-
+    // Button success
     &.btn-green {
         color: var(--c-white);
         border: 1px solid var(--c-green);
@@ -74,6 +75,7 @@ button {
         }
     }
 
+    // Button danger
     &.btn-red {
         color: var(--c-white);
         border: 1px solid var(--c-red);
@@ -85,6 +87,7 @@ button {
         }
     }
 
+    // Button warning
     &.btn-orange {
         color: var(--c-black);
         border: 1px solid var(--c-orange);
@@ -96,6 +99,7 @@ button {
         }
     }
 
+    // Button information
     &.btn-grey {
         color: var(--c-white);
         border: 1px solid var(--c-gray);
@@ -107,7 +111,61 @@ button {
         }
     }
 
-    &.btn-rounded {
-        border-radius: 25px;
+    // Other type of buttons
+    &.btn-palette-one {
+        color: var(--c-palette-five);
+        border: 1px solid var(--c-palette-one);
+        background-color: var(--c-palette-one);
+
+        &:hover {
+            color: var(--c-palette-one);
+            background-color: transparent;
+        }
+    }
+    
+    &.btn-palette-two {
+        color: var(--c-palette-five);
+        border: 1px solid var(--c-palette-two);
+        background-color: var(--c-palette-two);
+
+        &:hover {
+            color: var(--c-palette-two);
+            background-color: transparent;
+        }
+    }
+    
+    &.btn-palette-three {
+        color: var(--c-palette-five);
+        border: 1px solid var(--c-palette-three);
+        background-color: var(--c-palette-three);
+
+        &:hover {
+            color: var(--c-palette-three);
+            background-color: transparent;
+        }
+    }
+    
+    &.btn-palette-four {
+        color: var(--c-palette-five);
+        border: 1px solid var(--c-palette-four);
+        background-color: var(--c-palette-four);
+
+        &:hover {
+            color: var(--c-palette-four);
+            background-color: transparent;
+        }
+    }
+
+    &.btn-radient-four {
+        border: none;
+        color: var(--c-palette-five);
+        background-image: linear-gradient(to right, var(--c-palette-four), var(--c-palette-three));
+        box-shadow: 0 0.46875rem 2.1875rem rgba(0,0,0,.03), 0 0.9375rem 1.40625rem rgba(0,0,0,.03), 0 0.25rem 0.53125rem rgba(0,0,0,.05), 0 0.125rem 0.1875rem rgba(0,0,0,.03);
+
+        &:hover {
+            transition: .5s;
+            color: var(--c-black);
+            background-image: linear-gradient(to right, var(--c-white), var(--c-palette-three));
+        }
     }
 }

@@ -33,7 +33,7 @@ class QuestionController extends AbstractController
     public function get_questions(Request $request): JsonResponse
     {
         $limit = 30;
-        $offset = is_int($request->get("offset")) && $request->get("offset") > 0 ? $request->get("offset") : 1;
+        $offset = is_numeric($request->get("offset")) && $request->get("offset") > 0 ? $request->get("offset") : 1;
 
         return $this->json([
             "limit" => $limit,

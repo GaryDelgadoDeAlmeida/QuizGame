@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
 import Notification from "../parts/Notification";
+import { Link } from "react-router-dom";
 
 export default function RegisterForm() {
 
@@ -88,9 +89,13 @@ export default function RegisterForm() {
                     <span>I agree with the conditional terms of use</span>
                 </label>
             </div>
+
+            <div className={"form-information"}>
+                <p>Vous avez déjà un compte ? <Link to={"/login"}>Connectez-vous ici</Link></p>
+            </div>
             
             <div className={"form-button"}>
-                <button className={"btn btn-blue"}>Submit</button>
+                <button className={"btn btn-palette-four btn-space w-100px"}>Submit</button>
             </div>
         </form>
     )

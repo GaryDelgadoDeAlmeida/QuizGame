@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useRef, useState } from "react";
 import Notification from "../parts/Notification";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 export default function LoginForm({adminConnect}) {
 
@@ -62,8 +62,15 @@ export default function LoginForm({adminConnect}) {
                     <label htmlFor={"password"}>Password</label>
                     <input id={"password"} type={"password"} placeholder={"Your Password"} onChange={(e) => handleChange(e, "password")} required />
                 </div>
+                
+                {!adminConnect && (
+                    <div className={"form-information"}>
+                        <p>Vous n'avez de pas ? Crééez-en un <Link to={"/register"}>ici</Link></p>
+                    </div>
+                )}
+
                 <div className={"form-button"}>
-                    <button type={"submit"} className={"btn btn-blue"}>Submit</button>
+                    <button type={"submit"} className={"btn btn-palette-four btn-space w-100px"}>Submit</button>
                 </div>
             </form>
         </>

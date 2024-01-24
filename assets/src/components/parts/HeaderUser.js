@@ -5,6 +5,7 @@ export default function HeaderUser(props) {
 
     const [logged, setLogged] = useState(localStorage.getItem("token") != "" ? true : false)
     const handleLogout = (e) => {
+        e.preventDefault()
         localStorage.setItem("token", "")
         setLogged(false)
     }
@@ -18,16 +19,41 @@ export default function HeaderUser(props) {
             <div className={"page-user"}>
                 <div className={"page-header"}>
                     <nav className={"vertical-menu"}>
-                        <li><Link to={"/user"}>Home</Link></li>
-                        <li><Link to={"/user/profile"}>Profile</Link></li>
-                        <li><Link to={"/user/game"}>Start a game</Link></li>
-                        <li><Link to={"/user/best-score"}>Best score</Link></li>
                         <li>
-                            <button 
-                                type={"button"} 
-                                className={"btn btn-red"} 
-                                onClick={(e) => handleLogout(e)}
-                            >Logout</button>
+                            <Link to={"/user"}>
+                                <img src={`${window.location.origin}/content/svg/home-house-white.svg`} alt={""} />
+                                <span>Home</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to={"/user/profile"}>
+                                <img src={`${window.location.origin}/content/svg/avatar-white.svg`} alt={""} />
+                                <span>Profile</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to={"/user/best-score"}>
+                                <img src={`${window.location.origin}/content/svg/stars-white.svg`} alt={""} />
+                                <span>Best score</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to={"/user/game"}>
+                                <img src={`${window.location.origin}/content/svg/controller-joystick-white.svg`} alt={""} />
+                                <span>Game</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to={"/user/competition"}>
+                                <img src={`${window.location.origin}/content/svg/competition-white.svg`} alt={""} />
+                                <span>Competition</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to={"#"} onClick={(e) => handleLogout(e)}>
+                                <img src={`${window.location.origin}/content/svg/logout-white.svg`} alt={""} />
+                                <span>Logout</span>
+                            </Link>
                         </li>
                     </nav>
                 </div>
@@ -36,7 +62,7 @@ export default function HeaderUser(props) {
                     <div className={"page-banner"}>
                         <input id={"menubars"} className={"d-hidden"} type={"checkbox"} hidden />
                         <label htmlFor={"menubars"} className={"label-menubars"}>
-                            <img src={`${window.location.origin}/content/svg/bars.svg`} alt={""} />
+                            <img src={`${window.location.origin}/content/svg/bars-white.svg`} alt={""} />
                         </label>
                         
                         <div className={"mobile-menu"}>
@@ -46,16 +72,41 @@ export default function HeaderUser(props) {
                                 </label>
                                 
                                 <nav className={"menu"}>
-                                    <li><Link to={"/user"}>Home</Link></li>
-                                    <li><Link to={"/user/profile"}>Profile</Link></li>
-                                    <li><Link to={"/user/game"}>Start a game</Link></li>
-                                    <li><Link to={"/user/best-score"}>Best score</Link></li>
                                     <li>
-                                        <button 
-                                            type={"button"} 
-                                            className={"btn btn-red"} 
-                                            onClick={(e) => handleLogout(e)}
-                                        >Logout</button>
+                                        <Link to={"/user"}>
+                                            <img src={`${window.location.origin}/content/svg/home-house-white.svg`} alt={""} />
+                                            <span>Home</span>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to={"/user/profile"}>
+                                            <img src={`${window.location.origin}/content/svg/avatar-white.svg`} alt={""} />
+                                            <span>Profile</span>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to={"/user/best-score"}>
+                                            <img src={`${window.location.origin}/content/svg/stars-white.svg`} alt={""} />
+                                            <span>Best score</span>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to={"/user/game"}>
+                                            <img src={`${window.location.origin}/content/svg/controller-joystick-white.svg`} alt={""} />
+                                            <span>Game</span>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to={"/user/competition"}>
+                                            <img src={`${window.location.origin}/content/svg/competition-white.svg`} alt={""} />
+                                            <span>Competition</span>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link to={"#"} onClick={(e) => handleLogout(e)}>
+                                            <img src={`${window.location.origin}/content/svg/logout-white.svg`} alt={""} />
+                                            <span>Logout</span>
+                                        </Link>
                                     </li>
                                 </nav>
                             </div>
@@ -64,14 +115,6 @@ export default function HeaderUser(props) {
                     
                     <div className={"page-wrapper"}>
                         {props.children}
-                    </div>
-                    
-                    <div className={"page-footer"}>
-                        <div className={"footer-wrapper"}>
-                            <div className={"footer-copyright"}>
-                                <p>Copyright &copy; {(new Date()).toLocaleDateString("en-US", {year: 'numeric'})} &minus; Quiz Game</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

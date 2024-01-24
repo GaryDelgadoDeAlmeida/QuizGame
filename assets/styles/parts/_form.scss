@@ -3,14 +3,6 @@
 \* ----------------------------------------------- */
 form {
     width: 100%;
-
-    &.form-contact {
-        // 
-
-        input, textarea {
-            color: var(--c-white);
-        }
-    }
     
     .form-field {
         flex: 1;
@@ -19,7 +11,11 @@ form {
         flex-direction: column;
 
         &:not(:last-child) {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        &.-border-r {
+            border-radius: 25px;
         }
 
         label {
@@ -39,7 +35,6 @@ form {
         input:not([type="file"]) {
             height: 35px;
             padding: 0 20px;
-            border-radius: 25px;
             background-color: transparent;
             border: 1px solid var(--c-silver);
         }
@@ -52,7 +47,6 @@ form {
             height: 80px;
             padding: 20px;
             resize: vertical;
-            border-radius: 25px;
             background-color: transparent;
             border: 1px solid var(--c-silver);
         }
@@ -60,7 +54,6 @@ form {
         select {
             height: 35px;
             padding: 0 15px;
-            border-radius: 25px;
             background-color: transparent;
             border: 1px solid var(--c-silver);
 
@@ -79,7 +72,7 @@ form {
         gap: 10px;
         display: flex;
         flex-wrap: wrap;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
         flex-direction: row;
 
         .field {
@@ -91,6 +84,11 @@ form {
         .form-field {
             margin-bottom: 0;
         }
+    }
+
+    .form-information {
+        text-align: center;
+        margin-bottom: 10px;
     }
 
     .form-button {

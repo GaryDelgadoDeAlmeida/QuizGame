@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import HeaderAdmin from "../../components/parts/HeaderAdmin";
 import PrivateRessource from "../../components/utils/PrivateRessource";
 import { Link } from "react-router-dom";
@@ -6,10 +6,11 @@ import Badge from "../../components/parts/Badge";
 
 export default function HistoryGame() {
 
-    const { loading, items: games, load, error } = PrivateRessource(`${window.location.origin}/api/games`)
+    const [offset, setOffset] = useState(1)
+    const { loading, items: games, load, error } = PrivateRessource(`${window.location.origin}/api/games?offset=${offset}`)
     useEffect(() => {
         load()
-    }, [])
+    }, [offset])
 
     const handlePagination = (e) => {
         console.log("Hi handlePagination")

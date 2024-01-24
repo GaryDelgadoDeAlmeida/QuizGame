@@ -1,0 +1,22 @@
+.category-card {
+    color: var(--c-palette-four);
+    background-color: var(--c-palette-one);
+
+    .-content {
+        gap: 15px;
+        padding: 25px;
+        display: flex;
+        text-align: center;
+        flex-direction: column;
+
+        .-title {
+            font-size: 28px;
+            font-weight: 600;
+        }
+    
+        .-subtitle {
+            font-size: 16px;
+            font-weight: 500;
+        }
+    }
+}

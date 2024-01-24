@@ -136,7 +136,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $max;
     }
 
-    public function countGame() : int {
+    public function countGame(): int {
         return count($this->games);
     }
 
@@ -150,5 +150,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function countPlayedCategory(): int {
+        $count = 0;
+        $categories = [];
+
+        foreach($this->games as $game) {
+            if(!in_array($game->getCategory()->getLabelKey(), $categories)) {
+                $count += 1;
+            }
+        }
+
+        return $count;
     }
 }

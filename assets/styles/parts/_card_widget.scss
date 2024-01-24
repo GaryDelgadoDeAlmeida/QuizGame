@@ -1,0 +1,26 @@
+.widget-card {
+    padding: 15px;
+    background-color: var(--c-palette-one);
+    box-shadow: 0 0.46875rem 2.1875rem rgba(0,0,0,.03), 0 0.9375rem 1.40625rem rgba(0,0,0,.03), 0 0.25rem 0.53125rem rgba(0,0,0,.05), 0 0.125rem 0.1875rem rgba(0,0,0,.03);
+
+    .-content {
+        gap: 10px;
+        display: flex;
+        text-align: left;
+        flex-direction: column;
+
+        span {
+            color: var(--c-palette-four);
+
+            &:nth-child(1) {
+                font-size: 28px;
+                font-weight: 700;
+            }
+
+            &:nth-child(2) {
+                font-size: 16px;
+                font-weight: 500;
+            }
+        }
+    }
+}

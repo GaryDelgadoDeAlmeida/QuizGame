@@ -110,6 +110,10 @@ class Category
         return $this;
     }
 
+    public function countQuestion() : int {
+        return count($this->questions);
+    }
+
     public function removeQuestion(Question $question): static
     {
         if ($this->questions->removeElement($question)) {

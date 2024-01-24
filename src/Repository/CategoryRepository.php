@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\Category;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Category>
@@ -37,5 +39,18 @@ class CategoryRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * Count all category stored in the database
+     * 
+     * @return int
+     */
+    public function countCategories(): int {
+        return $this->createQueryBuilder("category")
+            ->select("COUNT(category.id) as nbrCategories")
+            ->getQuery()
+            ->getSingleResult()["nbrCategories"]
+        ;
     }
 }

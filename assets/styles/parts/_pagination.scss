@@ -2,36 +2,35 @@
     Pagination
 \* ----------------------------------------------- */
 .pagination {
-    flex: 1;
+    gap: 15px;
     width: 100%;
     height: auto;
     display: flex;
     padding: 10px 0;
     margin-top: 25px;
+    border-radius: 25px;
     flex-direction: row;
     justify-content: center;
-    background-color: var(--c-white);
-    // border: 1px solid var(--c-silver);
+    background-color: var(--c-palette-one);
 
     .item {
-        width: 20px;
-        height: 100%;
-        text-align: center;
-
-        &:not(:last-child) {
-            margin-right: 10px;
-        }
+        width: 30px;
+        height: 30px;
+        padding: 5px;
+        border: none;
+        display: flex;
+        margin: auto 0;
+        font-size: 16px;
+        border-radius: 25px;
+        color: var(--c-white);
+        text-decoration: none;
+        justify-content: center;
+        background-color: var(--c-palette-three);
 
         &.current-page {
-            color: var(--c-dimmGray);
-            border-bottom: 1px solid var(--c-dimmGray);
-        }
-
-        a, button {
-            border: none;
-            color: var(--c-black);
-            text-decoration: none;
-            background-color: transparent;
+            cursor: auto;
+            color: var(--c-palette-one);
+            background-color: var(--c-palette-four);
         }
     }
 }

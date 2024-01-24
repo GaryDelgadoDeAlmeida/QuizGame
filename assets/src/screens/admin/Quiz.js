@@ -12,7 +12,7 @@ export default function Quiz() {
 
     useEffect(() => {
         load()
-    }, [])
+    }, [offset])
     
     const handlePagination = (e) => {
         setOffset(parseInt(e.target.innerHTML))
@@ -53,7 +53,7 @@ export default function Quiz() {
                 </thead>
                 <tbody>
                     {!loading ? (
-                        Object.keys(questions).length > 0 ? (
+                        Object.keys(questions.data ?? []).length > 0 ? (
                             Object.values(questions.data).map((itemQuestion, index) => (
                                 <tr className={"questionItem"} key={index}>
                                     <td className={"-question"}>{itemQuestion.question}</td>

@@ -8,6 +8,7 @@
     font-size: .9rem;
     position: relative;
     scroll-behavior: smooth;
+    background-color: var(--c-palette-three);
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
@@ -19,7 +20,7 @@
         width: 250px;
         height: 100%;
         position: fixed;
-        background-color: rgba(0, 0, 0, .85);
+        background-color: var(--c-palette-one);
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.17);
 
         @include tablet {
@@ -42,7 +43,9 @@
                 }
 
                 a {
+                    gap: 15px;
                     width: 100%;
+                    display: flex;
                     padding: 15px;
                     text-transform: none;
                     color: var(--c-white);
@@ -50,7 +53,15 @@
 
                     &:hover {
                         transition: .3s;
-                        background-color: var(--c-blue);
+                        background-color: var(--c-palette-three);
+                    }
+
+                    img, span {
+                        margin: auto 0;
+                    }
+
+                    img {
+                        width: 25px;
                     }
                 }
 
@@ -78,7 +89,7 @@
             z-index: 2;
             padding: 25px;
             position: relative;
-            background-color: var(--c-white);
+            background-color: var(--c-palette-one);
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.17);
 
             @include desktop {
@@ -108,7 +119,7 @@
                 height: 100%;
                 position: fixed;
                 transition: .5s;
-                background-color: var(--c-black);
+                background-color: var(--c-palette-one);
 
                 .mobile-menu-widget {
                     padding: 25px;
@@ -124,16 +135,25 @@
                             display: flex;
     
                             a {
+                                gap: 25px;
                                 width: 100%;
                                 padding: 25px;
+                                display: flex;
                                 text-transform: none;
                                 color: var(--c-white);
                                 text-decoration: none;
             
                                 &:hover {
                                     transition: .3s;
-                                    color: var(--c-color);
-                                    background-color: var(--c-blue);
+                                    background-color: var(--c-palette-three);
+                                }
+
+                                img, span {
+                                    margin: auto 0;
+                                }
+
+                                img {
+                                    width: 25px;
                                 }
                             }
             

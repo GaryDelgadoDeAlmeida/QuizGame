@@ -151,6 +151,10 @@
     text-align: center;
 }
 
+.force-txt-center {
+    text-align: center !important;
+}
+
 .txt-uppercase {
     text-transform: uppercase;
 }
@@ -185,6 +189,9 @@
     border-radius: 0 !important;
 }
 
+.c-black {
+    color: var(--c-black);
+}
 /* ---------------------------------------- *\
     Display
 \* ---------------------------------------- */
@@ -222,6 +229,10 @@
         &.-col-4 {
             grid-template-columns: repeat(4, 1fr);
         }
+        
+        &.-col-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
     
         &.-col-2 {
             grid-template-columns: repeat(2, 1fr);
@@ -239,7 +250,7 @@
     }
 
     @include mobile {
-        &.-col-1 {
+        &.-m-col-1 {
             grid-template-columns: repeat(1, 1fr);
         }
     }

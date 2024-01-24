@@ -36,7 +36,7 @@ class UserController extends AbstractController
     #[Route('/users', name: 'get_users')]
     public function get_users(Request $request): JsonResponse {
         $limit = 30;
-        $offset = is_int($request->get("offset")) && (int)$request->get("offset") > 0 ? (int)$request->get("offset") : 1;
+        $offset = is_numeric($request->get("offset")) && (int)$request->get("offset") > 0 ? (int)$request->get("offset") : 1;
 
         return $this->json([
             "limit" => $limit,
@@ -92,9 +92,10 @@ class UserController extends AbstractController
     #[Route("/user/me", name: "get_profile", methods: ["GET", "UPDATE", "PUT"])]
     public function get_profile(Request $request) : JsonResponse {
         return $this->json([
-            "data" => $this->serializeManager->serializeContent(
-                $this->user
-            )
+            "data" => $this->serializeManager->serializeContent([
+                "user" => $this->user,
+                "pastCompetition" => []
+            ])
         ], Response::HTTP_OK);
     }
 
@@ -162,15 +163,15 @@ class UserController extends AbstractController
             ], Response::HTTP_NOT_FOUND);
         }
 
-        // try {
-        //     $this->userRepository->remove($user, true);
-        // } catch(\Exception $e) {
-        //     return $this->json([
-        //         "data" => [
-        //             "message" => $e->getMessage()
-        //         ]
-        //     ], Response::HTTP_INTERNAL_SERVER_ERROR);
-        // }
+        try {
+            $this->userRepository->remove($user, true);
+        } catch(\Exception $e) {
+            return $this->json([
+                "data" => [
+                    "message" => $e->getMessage()
+                ]
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
 
         return $this->json([
             "data" => null

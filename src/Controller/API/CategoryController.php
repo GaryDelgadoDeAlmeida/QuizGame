@@ -8,6 +8,7 @@ use App\Repository\CategoryRepository;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/api', name: 'api_')]
@@ -26,6 +27,7 @@ class CategoryController extends AbstractController
     #[Route('/categories', name: 'get_categories', methods: ["GET"])]
     public function get_categories(): JsonResponse {
         return $this->json([
+            "nbrCategories" => $this->categoryRepository->countCategories(),
             "data" => $this->serializeManager->serializeContent(
                 $this->categoryRepository->findAll()
             )

@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Game;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Game>
@@ -43,7 +44,7 @@ class GameRepository extends ServiceEntityRepository
      * @param int limit
      * @return Game[]
      */
-    public function getBestScores(int $limit = 10) : array {
+    public function getBestScores(int $limit = 10): array {
         return $this->createQueryBuilder("game")
             ->groupBy("game.user")
             ->orderBy("game.score", "DESC")
@@ -58,11 +59,24 @@ class GameRepository extends ServiceEntityRepository
      * 
      * @return int
      */
-    public function countGames() : int {
+    public function countGames(): int {
         return $this->createQueryBuilder("game")
             ->select("COUNT(game.id) as nbrGames")
             ->getQuery()
             ->getSingleResult()["nbrGames"]
+        ;
+    }
+
+    /**
+     * @param User
+     * @return int
+     */
+    public function countAnsweredQuestions(User $user): int {
+        return $this->createQueryBuilder("game")
+            ->select("COUNT(game_detail.id) as nbrAnsweredQuestions")
+            ->leftJoin("game.gameDetails", "game_detail")
+            ->getQuery()
+            ->getSingleResult()["nbrAnsweredQuestions"]
         ;
     }
 }

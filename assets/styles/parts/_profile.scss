@@ -1,0 +1,51 @@
+.profile {
+    width: 100%;
+
+    .-profile-infos {
+        display: flex;
+
+        @include tablet {
+            flex-direction: column;
+        }
+    }
+
+    .-profile-tabs {
+        width: 100%;
+        margin-top: 50px;
+        display: flex;
+        background-color: var(--c-palette-two);
+
+        .-tab-link {
+            gap: 0;
+            width: 200px;
+            display: flex;
+            min-height: 400px;
+            flex-direction: column;
+            background-color: var(--c-palette-one);
+
+            .-item {
+                padding: 20px;
+                cursor: pointer;
+                list-style: none;
+                color: var(--c-white);
+
+                &.-active {
+                    color: var(--c-black);
+                    background-color: var(--c-palette-four);
+                }
+
+                &:hover {
+                    transition: .5s;
+                    color: var(--c-black);
+                    background-color: var(--c-palette-four);
+                }
+            }
+        }
+
+        .-tab-content {
+            padding: 15px;
+            color: var(--c-white);
+            width: calc(100% - 200px);
+        }
+    }
+}

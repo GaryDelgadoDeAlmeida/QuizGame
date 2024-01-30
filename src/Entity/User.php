@@ -70,6 +70,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
+        
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
@@ -159,9 +160,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         foreach($this->games as $game) {
             if(!in_array($game->getCategory()->getLabelKey(), $categories)) {
                 $count += 1;
+                $categories[] = $game->getCategory()->getLabelKey();
             }
         }
 
         return $count;
+    }
+
+    public function getPlayedCategories() : array {
+        $categories = [];
+
+        foreach($this->games as $game) {
+            if(!in_array($game->getCategory(), $categories)) {
+                $categories[] = $game->getCategory();
+            }
+        }
+
+        return $categories;
     }
 }

@@ -35,10 +35,9 @@ class GameController extends AbstractController
         $offset = is_int($request->get("offset")) && $request->get("offset") > 1 ? $request->get("offset") : 1;
 
         return $this->json([
-            "limit" => $limit,
             "offset" => $offset,
             "maxOffset" => ceil($this->gameRepository->countGames() / $limit),
-            "data" => $this->serializeManager->serializeContent(
+            "results" => $this->serializeManager->serializeContent(
                 $this->gameRepository->findBy([], ["id" => "DESC"], $limit, ($offset - 1) * $limit)
             )
         ], Response::HTTP_OK);

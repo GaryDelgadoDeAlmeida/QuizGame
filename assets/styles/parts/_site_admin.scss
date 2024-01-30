@@ -43,8 +43,10 @@
                 }
 
                 a {
+                    gap: 15px;
                     width: 100%;
                     padding: 15px;
+                    display: flex;
                     text-transform: none;
                     color: var(--c-white);
                     text-decoration: none;
@@ -52,6 +54,14 @@
                     &:hover {
                         transition: .3s;
                         background-color: var(--c-palette-four);
+                    }
+
+                    span, img {
+                        margin: auto 0;
+                    }
+
+                    img {
+                        width: 35px;
                     }
                 }
 

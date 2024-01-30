@@ -1,87 +1,104 @@
 import React, { useEffect, useRef, useState } from "react";
-import PrivateRessource from "../utils/PrivateRessource";
+import { useNavigate } from "react-router-dom";
 import { findParent } from "../utils/DomControl";
+import Notification from "../parts/Notification";
+import AnswersField from "./parts/AnswersField";
+import CategoriesField from "./parts/CategoriesField";
+import axios from "axios";
+import DifficultyField from "./parts/DifficultyField";
 
 export default function QuestionForm({question = null}) {
 
+    const navigate = useNavigate()
+    const answerRowID = "answer-row-"
+    const user = JSON.parse(localStorage.getItem("user"))
     const [formResponse, setFormResponse] = useState("")
-    let credentials = useRef({
-        id: question ? question.id : null,
-        question: question ? question.label : "",
-        category: question ? question.category : "",
-        answers: question ? {...question.answers} : {},
-        difficulty: question ? question.difficulty : ""
+    const [credentials, setCredentials] = useState(question ?? {
+        question: "",
+        difficulty: "",
+        multiple_answer: false,
+        category: [],
+        answers: []
     })
 
-    const { loading, items: categories, load, error } = PrivateRessource(`${window.location.origin}/api/categories`)
-    useEffect(() => {
-        load()
-    }, [])
-
-    const handleNewRow = (e) => {
-        let content = `
-            <div className={"form-field-inline"}>
-                <div className={"form-field"}>
-                    <input type={"text"} maxLength={255} />
-                </div>
-                <div className={"form-field"}>
-                    <label>
-                        <input type={"checkbox"} />
-                        <span>Answer</span>
-                    </label>
-                </div>
-            </div>
-        `
-
-        let parent = findParent(e.currentTarget, "form-field")
-        let answersDiv = parent.find("#answers")
+    const updateCredentials = (fieldName, value) => {
+        setCredentials({
+            ...credentials,
+            [fieldName]: value
+        })
     }
 
-    const handleRemoveRow = (e) => {}
-
-    const handleChange = (e, fieldName) => {}
+    const handleChange = (e, fieldName) => {
+        setCredentials({
+            ...credentials,
+            [fieldName]: e.currentTarget.value
+        })
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
+
+        console.log(credentials)
+        return
+
+        axios
+            .post(`${window.location.origin}/api/question`, credentials, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json+ld",
+                    "Authorization": "Bearer " + user.token
+                }
+            })
+            .then((response) => {
+                console.log(
+                    response,
+                    response.data
+                )
+            })
+            .catch((error) => {
+                if(error.status == 401) {
+                    navigate(user.role == "ROLE_ADMIN" ? "/admin-login" : "/login")
+                    return
+                }
+
+                let errorMessage = "An error has been encountered"
+                if(error.response.data) {
+                    errorMessage = error.response.data.message
+                }
+
+                setFormResponse({classname: "danger", message: errorMessage})
+            })
     }
 
     return (
-        <form className={"form"} onClick={(e) => handleSubmit(e)}>
-            <div className={"form-field"}>
-                <input type={"text"} placeholder={"Question"} maxLength={255} onChange={(e) => handleChange(e, "question")} required />
-            </div>
+        <form className={"form"} onSubmit={(e) => handleSubmit(e)}>
+            
+            {Object.keys(formResponse).length > 0 && (
+                <Notification {...formResponse} />
+            )}
+
+            <CategoriesField handleChange={handleChange} />
+            
+            <DifficultyField difficulty={credentials.difficulty} handleChange={handleChange} />
             
             <div className={"form-field"}>
-                {!loading && (
-                    <select onChange={(e) => handleChange(e, "category")} required>
-                        <option value={""}>Select a category</option>
-                        {Object.values(categories).map((category, index) => (
-                            <option value={category.labelKey}>{category.label}</option>
-                        ))}
-                    </select>
-                )}
+                <input 
+                    type={"text"} 
+                    placeholder={"Question"} 
+                    maxLength={255} 
+                    onChange={(e) => handleChange(e, "question")} 
+                    required 
+                />
+            </div>
+
+            <div className={"form-field"}>
+                <label>
+                    <input type={"checkbox"} onChange={(e) => handleChange(e, "mulitple_answer")} />
+                    <span>Allow muliple answer</span>
+                </label>
             </div>
             
-            <div className={"form-field"}>
-                <select onChange={(e) => handleChange(e, "difficulty")} required>
-                    <option value={""}>Select a difficulty</option>
-                    <option value={"easy"}>Easy</option>
-                    <option value={"medium"}>Medium</option>
-                    <option value={"hard"}>Hard</option>
-                </select>
-            </div>
-            
-            <div className={"form-field"}>
-                <label htmlFor={"answers"}>Answers</label>
-                
-                <div id={"anwsers"}></div>
-                
-                <div className={""}>
-                    <button type={"button"} className={"btn btn-blue -inline-flex"}>
-                        <img src={`${window.location.origin}/content/svg/plus-white.svg`} alt={""} />
-                    </button>
-                </div>
-            </div>
+            <AnswersField answerRowID={answerRowID} updateCredentials={updateCredentials} />
             
             <div className={"form-button"}>
                 <button type={"submit"} className={"btn btn-blue"}>Submit</button>

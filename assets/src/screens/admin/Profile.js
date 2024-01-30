@@ -13,7 +13,6 @@ export default function Profile() {
 
     return (
         <HeaderAdmin>
-            {console.log(error, user)}
             {!loading ? (
                 <div className={"card"}>
                     <div className={"-header"}>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import HeaderAdmin from "../../components/parts/HeaderAdmin";
+import Notification from "../../components/parts/Notification";
 import PrivateRessource from "../../components/utils/PrivateRessource";
 import { findParent } from "../../components/utils/DomControl"
 import axios from "axios";
@@ -83,76 +84,74 @@ export default function Contact() {
 
     return (
         <HeaderAdmin>
-            {Object.keys(contacts.data ?? []).length > 0 && (
-                <button className={"btn btn-red"} onClick={(e) => handleRemoveAll(e)}>Remove all</button>
-            )}
-            
-            <div className={"mt-25"}>
-                <table className={"table"}>
-                    <thead>
-                        <tr>
-                            <th>Subject</th>
-                            <th>Fullname</th>
-                            <th>Message</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id={"contact-table-body"}>
-                        {!loading ? (
-                            Object.keys(contacts.data ?? []).length > 0 ? (
-                                Object.values(contacts.data).map((item, index) => (
-                                    <tr className={"-item"} key={index}>
-                                        <td>{item.subject}</td>
-                                        <td>{item.firstname} {item.lastname}</td>
-                                        <td>{item.message}</td>
-                                        <td>
-                                            <Link className={"btn -inline-flex"} to={`/admin/contact/${item.id}`}>
-                                                <img src={`${window.location.origin}/content/svg/eye.svg`} alt={""} />
-                                            </Link>
-                                            
-                                            <button className={"btn -inline-flex"} onClick={(e) => handleRemove(e, item.id)}>
-                                                <img src={`${window.location.origin}/content/svg/trash.svg`} alt={""} />
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))
-                            ) : (
+            {!loading ? (
+                <>
+                    {Object.keys(contacts.results ?? []).length > 0 && (
+                        <button className={"btn btn-red"} onClick={(e) => handleRemoveAll(e)}>Remove all</button>
+                    )}
+                    
+                    <div className={"mt-25"}>
+                        <table className={"table"}>
+                            <thead>
                                 <tr>
-                                    <td colSpan={4}>There is no contact</td>
+                                    <th>Subject</th>
+                                    <th>Fullname</th>
+                                    <th>Message</th>
+                                    <th></th>
                                 </tr>
-                            )
-                        ) : (
-                            <tr>
-                                <td colSpan={4}>Loading ...</td>
-                            </tr>
+                            </thead>
+                            <tbody id={"contact-table-body"}>
+                                {Object.keys(contacts.results ?? []).length > 0 ? (
+                                    Object.values(contacts.results).map((item, index) => (
+                                        <tr className={"-item"} key={index}>
+                                            <td>{item.subject}</td>
+                                            <td>{item.firstname} {item.lastname}</td>
+                                            <td>{item.message}</td>
+                                            <td>
+                                                <Link className={"btn -inline-flex"} to={`/admin/contact/${item.id}`}>
+                                                    <img src={`${window.location.origin}/content/svg/eye.svg`} alt={""} />
+                                                </Link>
+                                                
+                                                <button className={"btn btn-red -inline-flex"} onClick={(e) => handleRemove(e, item.id)}>
+                                                    <img src={`${window.location.origin}/content/svg/trash.svg`} alt={""} />
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td className={"-message"} colSpan={4}>There is no contact</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+
+                        {offset > 0 && offset <= contacts.maxOffset && contacts.maxOffset > 1 && (
+                            <div className={"pagination"}>
+                                {offset - 1 > 0 && (
+                                    <>
+                                        <button className={"item"} onClick={(e) => handlePagination(e, 1)}>&laquo;</button>
+                                        <button className={"item"} onClick={(e) => handlePagination(e, offset - 1)}>&lsaquo;</button>
+                                        <button className={"item"} onClick={(e) => handlePagination(e, offset - 1)}>1</button>
+                                    </>
+                                )}
+
+                                <button className={"item current-page"}>{offset}</button>
+                                
+                                {offset + 1 <= contacts.maxOffset && (
+                                    <>
+                                        <button className={"item"} onClick={(e) => handlePagination(e, offset + 1)}>3</button>
+                                        <button className={"item"} onClick={(e) => handlePagination(e, offset + 1)}>&rsaquo;</button>
+                                        <button className={"item"} onClick={(e) => handlePagination(e, contacts.maxOffset)}>&raquo;</button>
+                                    </>
+                                )}
+                            </div>
                         )}
-                    </tbody>
-                </table>
-
-                {!loading && (
-                    offset >= 1 && offset <= contacts.maxOffset && (
-                        <div className={"pagination"}>
-                            {offset - 1 > 0 && (
-                                <>
-                                    <button className={"item"} onClick={(e) => handlePagination(e, 1)}>&laquo;</button>
-                                    <button className={"item"} onClick={(e) => handlePagination(e, offset - 1)}>&lsaquo;</button>
-                                    <button className={"item"} onClick={(e) => handlePagination(e, offset - 1)}>1</button>
-                                </>
-                            )}
-
-                            <button className={"item current-page"}>{offset}</button>
-                            
-                            {offset + 1 <= contacts.maxOffset && (
-                                <>
-                                    <button className={"item"} onClick={(e) => handlePagination(e, offset + 1)}>3</button>
-                                    <button className={"item"} onClick={(e) => handlePagination(e, offset + 1)}>&rsaquo;</button>
-                                    <button className={"item"} onClick={(e) => handlePagination(e, contacts.maxOffset)}>&raquo;</button>
-                                </>
-                            )}
-                        </div>
-                    )
-                )}
-            </div>
+                    </div>
+                </>
+            ) : (
+                <Notification classname={"information"} message={"Loading ..."} />
+            )}
         </HeaderAdmin>
     )
 }

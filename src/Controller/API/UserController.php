@@ -5,6 +5,7 @@ namespace App\Controller\API;
 use App\Entity\User;
 use App\Manager\UserManager;
 use App\Manager\SerializeManager;
+use App\Repository\GameRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
@@ -20,17 +21,20 @@ class UserController extends AbstractController
     private UserManager $userManager;
     private SerializeManager $serializeManager;
     private UserRepository $userRepository;
+    private GameRepository $gameRepository;
     
     public function __construct(
         Security $security,
         UserManager $userManager,
         SerializeManager $serializeManager,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        GameRepository $gameRepository
     ) {
         $this->user = $security->getUser();
         $this->userManager = $userManager;
         $this->serializeManager = $serializeManager;
         $this->userRepository = $userRepository;
+        $this->gameRepository = $gameRepository;
     }
 
     #[Route('/users', name: 'get_users')]
@@ -42,7 +46,7 @@ class UserController extends AbstractController
             "limit" => $limit,
             "offset" => $offset,
             "maxOffset" => ceil($this->userRepository->countUsers() / $limit),
-            "data" => $this->serializeManager->serializeContent(
+            "results" => $this->serializeManager->serializeContent(
                 $this->userRepository->findBy([], ["email" => "DESC"], $limit, ($offset - 1) * $limit)
             )
         ], Response::HTTP_OK);
@@ -92,9 +96,12 @@ class UserController extends AbstractController
     #[Route("/user/me", name: "get_profile", methods: ["GET", "UPDATE", "PUT"])]
     public function get_profile(Request $request) : JsonResponse {
         return $this->json([
-            "data" => $this->serializeManager->serializeContent([
+            "results" => $this->serializeManager->serializeContent([
                 "user" => $this->user,
-                "pastCompetition" => []
+                "pastCompetitions" => [],
+                "pastGames" => $this->gameRepository->findBy(["user" => $this->user], ["created_at" => "DESC"]),
+                "pastScores" => $this->gameRepository->findBy(["user" => $this->user], ["score" => "DESC"]),
+                "pastPlayedCategories" => $this->user->getPlayedCategories()
             ])
         ], Response::HTTP_OK);
     }

@@ -84,6 +84,10 @@
     margin: auto;
 }
 
+.m-tb-auto {
+    margin: auto 0;
+}
+
 .ml-15 {
     margin-left: 15px;
 }
@@ -141,6 +145,10 @@
 \* ---------------------------------------- */
 .txt-left {
     text-align: left;
+}
+
+.force-txt-left {
+    text-align: left !important;
 }
 
 .txt-right {

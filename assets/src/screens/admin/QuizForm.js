@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import HeaderAdmin from "../../components/parts/HeaderAdmin";
 import Notification from "../../components/parts/Notification";
 import QuestionForm from "../../components/forms/QuestionForm";
@@ -18,15 +18,20 @@ export default function QuizForm() {
 
     return (
         <HeaderAdmin>
-            {!loading ? (
-                <div className={"card"}>
-                    <div className={"-content"}>
-                        <QuestionForm question={question.data} />
+            <Link className={"btn btn-palette-four"} to={"/admin/quiz"}>Return</Link>
+
+            <div className={"mt-25"}>
+                {!loading ? (
+                    <div className={"card"}>
+                        <div className={"-header"}></div>
+                        <div className={"-content"}>
+                            <QuestionForm question={question.data} />
+                        </div>
                     </div>
-                </div>
-            ) : (
-                <Notification classname={"information"} message={"Loading . . ."} />
-            )}
+                ) : (
+                    <Notification classname={"information"} message={"Loading . . ."} />
+                )}
+            </div>
         </HeaderAdmin>
     )
 }

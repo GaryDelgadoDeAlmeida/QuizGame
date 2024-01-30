@@ -62,23 +62,25 @@ export default function BestScore() {
                     </tbody>
                 </table>
 
-                <div className={"pagination"}>
-                    {offset - 1 > 0 && (
-                        <>
-                            <button className={"item"} onClick={(e) => handlePagination(e, 1)}>&laquo;</button>
-                            <button className={"item"} onClick={(e) => handlePagination(e, offset - 1)}>1</button>
-                        </>
-                    )}
+                {offset > 0 && offset <= items.maxOffset && items.maxOffset > 1 && (
+                    <div className={"pagination"}>
+                        {offset - 1 > 0 && (
+                            <>
+                                <button className={"item"} onClick={(e) => handlePagination(e, 1)}>&laquo;</button>
+                                <button className={"item"} onClick={(e) => handlePagination(e, offset - 1)}>{offset - 1}</button>
+                            </>
+                        )}
 
-                    <button className={"item current-page"}>{offset}</button>
-                    
-                    {offset + 1 <= items.maxOffset && (
-                        <>
-                            <button className={"item"} onClick={(e) => handlePagination(e, offset + 1)}>3</button>
-                            <button className={"item"} onClick={(e) => handlePagination(e, categories.maxOffset)}>&raquo;</button>
-                        </>
-                    )}
-                </div>
+                        <button className={"item current-page"}>{offset}</button>
+                        
+                        {offset + 1 <= items.maxOffset && (
+                            <>
+                                <button className={"item"} onClick={(e) => handlePagination(e, offset + 1)}>{offset + 1}</button>
+                                <button className={"item"} onClick={(e) => handlePagination(e, categories.maxOffset)}>&raquo;</button>
+                            </>
+                        )}
+                    </div>
+                )}
             </div>
         </HeaderUser>
     )

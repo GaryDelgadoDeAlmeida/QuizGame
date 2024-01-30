@@ -58,39 +58,11 @@ export function findChildren(element, className, tagName = null) {
 }
 
 /**
- * TODO :: NEED TO BE TESTED IF IT'S WORK
+ * Format date to english
  * 
- * @param {*} element 
- * @param {*} className 
- * @param {*} tagName 
+ * @param {*} date 
  * @returns 
  */
-export function findRecurrentlyChildren(element, className, tagName = null) {
-    let childrens = element.children, findElement
-    
-    if(tagName !== null) {
-        tagName = tagName.toUpperCase()
-    }
-
-    for(let i = 0; i < childrens.length; i++) {
-        let elementChildrens = childrens[i].children
-        
-        if(
-            (className && childrens[i] && childrens[i].className.includes(className)) ||
-            (tagName && childrens[i] && childrens[i].tagName === tagName)
-        ) {
-            findElement = childrens[i]
-            break
-        }
-
-        if(elementChildrens.length > 0) {
-            findRecurrentlyChildren(childrens[i], className, tagName)
-        }
-    }
-
-    return findElement
-}
-
 export function formatDate(date) {
     var d = new Date(date),
         month = "" + (d.getMonth() + 1),

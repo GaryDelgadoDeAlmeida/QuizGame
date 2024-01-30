@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 import Notification from "../parts/Notification";
 import { Link, Navigate } from "react-router-dom";
 
-export default function LoginForm({adminConnect}) {
+export default function LoginForm({adminConnect = false}) {
 
     const [logged, setLogged] = useState(false)
     const [formResponse, setFormResponse] = useState({})
@@ -30,7 +30,11 @@ export default function LoginForm({adminConnect}) {
                 }
             })
             .then((response) => {
-                localStorage.setItem("token", response.data.token)
+                localStorage.setItem("user", JSON.stringify({
+                    time: Date.now(),
+                    role: adminConnect ? "ROLE_ADMIN" : "ROLE_USER",
+                    token: response.data.token
+                }))
                 setLogged(true)
             })
             .catch((error) => {

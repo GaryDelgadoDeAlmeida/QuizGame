@@ -39,7 +39,7 @@ class QuestionController extends AbstractController
             "limit" => $limit,
             "offset" => $offset,
             "maxOffset" => ceil($this->questionRepository->countQuestions() / $limit),
-            "data" => $this->serializeManager->serializeContent(
+            "results" => $this->serializeManager->serializeContent(
                 $this->questionRepository->findBy([], ["id" => "DESC"], $limit, ($offset - 1) * $limit)
             )
         ], Response::HTTP_OK);
@@ -50,14 +50,22 @@ class QuestionController extends AbstractController
         $question = $this->questionRepository->find($questionID);
         if(!$question) {
             return $this->json([
-                "data" => [
-                    "message" => "Question not found"
-                ]
+                "code" => Response::HTTP_NOT_FOUND,
+                "message" => "Question not found"
             ], Response::HTTP_NOT_FOUND);
         }
 
+        return $this->json(
+            $this->serializeManager->serializeContent($question), 
+            Response::HTTP_OK
+        );
+    }
+
+    #[Route("/question/{questionID}/remove", name: "remove_question", methods: ["DELETE"])]
+    public function remove_question(int $questionID) : JsonResponse {
         return $this->json([
-            "data" => $this->serializeManager->serializeContent($question)
+            "code" => Response::HTTP_OK,
+            "message" => "Route under construction"
         ], Response::HTTP_OK);
     }
 }

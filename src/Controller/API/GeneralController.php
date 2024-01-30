@@ -40,7 +40,7 @@ class GeneralController extends AbstractController
         $this->questionRepository = $questionRepository;
     }
 
-    #[Route("/user", name: "get_user_home")]
+    #[Route("/user", name: "get_user_home", methods: ["GET"])]
     public function get_user_home() : JsonResponse {
         return $this->json([
             "data" => [
@@ -49,21 +49,23 @@ class GeneralController extends AbstractController
                 "nbrCategories" => $this->user->countPlayedCategory(),
                 "nbrAnsweredQuestions" => $this->gameRepository->countAnsweredQuestions($this->user),
                 "latestGames" => $this->serializeManager->serializeContent(
-                    $this->gameRepository->findBy(["user" => $this->user], ["created_at" => "DESC"], 10, 1)
+                    $this->gameRepository->findBy(["user" => $this->user], ["created_at" => "DESC"], 10)
                 )
             ]
         ], Response::HTTP_OK);
     }
 
-    #[Route('/admin', name: 'get_admin_home')]
+    #[Route('/admin', name: 'get_admin_home', methods: ["GET"])]
     public function get_admin_home(): JsonResponse {
         return $this->json([
-            "data" => $this->serializeManager->serializeContent([
+            "results" => [
                 "nbrUsers" => $this->userRepository->countUsers(),
-                "nbrParties" => 0,
+                "nbrParties" => $this->gameRepository->countGames(),
                 "nbrQuestions" => $this->questionRepository->countQuestions(),
-                "best-scores" => []
-            ])
+                "bestScores" => $this->serializeManager->serializeContent(
+                    $this->gameRepository->findBy([], ["score" => "DESC"], 5)
+                )
+            ]
         ], Response::HTTP_OK);
     }
 }

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import HeaderAdmin from "../../components/parts/HeaderAdmin";
-import PrivateRessource from "../../components/utils/PrivateRessource";
 import axios from "axios";
 import { findParent } from "../../components/utils/DomControl";
+import HeaderAdmin from "../../components/parts/HeaderAdmin";
+import Notification from "../../components/parts/Notification";
+import PrivateRessource from "../../components/utils/PrivateRessource";
 
 export default function Users() {
 
@@ -57,71 +58,67 @@ export default function Users() {
         <HeaderAdmin>
             <Link className={"btn btn-blue"} to={"/admin/user/new"}>Add a account</Link>
 
-            <div className={"mt-25"}>
-                <table className={"table"}>
-                    <thead>
-                        <tr>
-                            <th>Username</th>
-                            <th>Role</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {!loading ? (
-                            Object.keys(users.data ?? []).length > 0 ? (
-                                Object.values(users.data).map((user, index) => (
-                                    <tr className={"-row-item"} key={index}>
-                                        <td className={"-username"}>{user.email}</td>
-                                        <td className={"-role"}>{user.roles[0]}</td>
-                                        <td className={"-actions"}>
-                                            <Link 
-                                                className={"btn btn-orange -inline-flex"} 
-                                                to={"/admin/user/" + user.id}
-                                            >
-                                                <img src={`${window.location.origin}/content/svg/pencil.svg`} alt={""} />
-                                            </Link>
-                                            
-                                            <button 
-                                                className={"btn btn-red -inline-flex"} 
-                                                data-userid={user.id}
-                                                onClick={(e) => handleRemove(e)}
-                                            >
-                                                <img src={`${window.location.origin}/content/svg/trash.svg`} alt={""} />
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))
-                            ) : (
+            {!loading ? (
+                <>
+                    <div className={"mt-25"}>
+                        <table className={"table -palette-one"}>
+                            <thead>
                                 <tr>
-                                    <td className={"-message"} colSpan={3}>No users registered</td>
+                                    <th>Username</th>
+                                    <th>Role</th>
+                                    <th></th>
                                 </tr>
-                            )
-                        ) : (
-                            <tr>
-                                <td className={"-message"} colSpan={3}>Loading ...</td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-            </div>
+                            </thead>
+                            <tbody>
+                                {Object.keys(users.results ?? []).length > 0 ? (
+                                    Object.values(users.results).map((user, index) => (
+                                        <tr className={"-row-item"} key={index}>
+                                            <td className={"-username"}>{user.email}</td>
+                                            <td className={"-role"}>{user.roles[0]}</td>
+                                            <td className={"-actions"}>
+                                                <Link 
+                                                    className={"btn btn-orange -inline-flex"} 
+                                                    to={"/admin/user/" + user.id}
+                                                >
+                                                    <img src={`${window.location.origin}/content/svg/pencil-white.svg`} alt={""} />
+                                                </Link>
+                                                
+                                                <button 
+                                                    className={"btn btn-red -inline-flex"} 
+                                                    data-userid={user.id}
+                                                    onClick={(e) => handleRemove(e)}
+                                                >
+                                                    <img src={`${window.location.origin}/content/svg/trash-white.svg`} alt={""} />
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td className={"-message"} colSpan={3}>No users registered</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
 
-            <div className={"pagination"}>
-                {offset - 1 > 0 && (
-                    <div className={"item"}>
-                        <button onClick={(e) => handlePagination(e)}>{offset - 1}</button>
-                    </div>
-                )}
-                
-                <div className={"item current-page"}>
-                    <span>{offset}</span>
-                </div>
-                
-                {offset + 1 <= maxOffset && (
-                    <div className={"item"}>
-                        <button onClick={(e) => handlePagination(e)}>{offset + 1}</button>
-                    </div>
-                )}
-            </div>
+                    {offset > 0 && offset <= users.maxOffset && users.maxOffset > 1 && (
+                        <div className={"pagination"}>
+                            {offset - 1 > 0 && (
+                                <button className={"item"} onClick={(e) => handlePagination(e)}>{offset - 1}</button>
+                            )}
+                            
+                            <button className={"item current-page"}>{offset}</button>
+                            
+                            {offset + 1 <= maxOffset && (
+                                <button className={"item"} onClick={(e) => handlePagination(e)}>{offset + 1}</button>
+                            )}
+                        </div>
+                    )}
+                </>
+            ) : (
+                <Notification classname={"information"} message={"Loading ..."} />
+            )}
         </HeaderAdmin>
     )
 }

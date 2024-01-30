@@ -11,9 +11,13 @@
 
     .-profile-tabs {
         width: 100%;
-        margin-top: 50px;
         display: flex;
+        margin-top: 50px;
         background-color: var(--c-palette-two);
+
+        @include tablet {
+            flex-direction: column;
+        }
 
         .-tab-link {
             gap: 0;
@@ -22,6 +26,12 @@
             min-height: 400px;
             flex-direction: column;
             background-color: var(--c-palette-one);
+
+            @include tablet {
+                width: 100%;
+                min-height: auto;
+                flex-direction: row;
+            }
 
             .-item {
                 padding: 20px;

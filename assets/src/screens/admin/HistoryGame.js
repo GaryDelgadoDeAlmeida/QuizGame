@@ -22,7 +22,7 @@ export default function HistoryGame() {
 
     return (
         <HeaderAdmin>
-            <table className={"table"}>
+            <table className={"table -palette-one"}>
                 <thead>
                     <tr>
                         <th>Date</th>
@@ -71,7 +71,7 @@ export default function HistoryGame() {
                 </tbody>
             </table>
 
-            {games.offset > 0 && games.offset <= games.maxOffset && (
+            {games.offset > 0 && games.offset <= games.maxOffset && games.maxOffset > 1 && (
                 <div className={"pagination"}>
                     {games.offset - 1 > 0 && (
                         <div className={"item"}>

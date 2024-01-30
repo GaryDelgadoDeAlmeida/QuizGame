@@ -42,13 +42,12 @@ export default function Game() {
                                 ))}
                             </div>
 
-                            {offset <= categories.maxOffset && offset > 0 && (
+                            {offset > 0 && offset <= categories.maxOffset && categories.maxOffset > 1 && (
                                 <div className={"pagination"}>
                                     {offset - 1 > 0 && (
                                         <>
                                             <button className={"item"} onClick={(e) => handlePagination(e, 1)}>&laquo;</button>
-                                            <button className={"item"} onClick={(e) => handlePagination(e, offset - 1)}>&lsaquo;</button>
-                                            <button className={"item"} onClick={(e) => handlePagination(e, offset - 1)}>1</button>
+                                            <button className={"item"} onClick={(e) => handlePagination(e, offset - 1)}>{offset - 1}</button>
                                         </>
                                     )}
 
@@ -56,8 +55,7 @@ export default function Game() {
                                     
                                     {offset + 1 <= categories.maxOffset && (
                                         <>
-                                            <button className={"item"} onClick={(e) => handlePagination(e, offset + 1)}>3</button>
-                                            <button className={"item"} onClick={(e) => handlePagination(e, offset + 1)}>&rsaquo;</button>
+                                            <button className={"item"} onClick={(e) => handlePagination(e, offset + 1)}>{offset + 1}</button>
                                             <button className={"item"} onClick={(e) => handlePagination(e, categories.maxOffset)}>&raquo;</button>
                                         </>
                                     )}

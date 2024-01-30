@@ -3,9 +3,10 @@ import { Link, Navigate } from "react-router-dom";
 
 export default function HeaderAdmin(props) {
 
-    const [logged, setLogged] = useState(localStorage.getItem("token") != "" ? true : false)
+    const [logged, setLogged] = useState(localStorage.getItem("user") != "" ? true : false)
     const handleLogout = (e) => {
-        localStorage.setItem("token", "")
+        e.preventDefault()
+        localStorage.setItem("user", "")
         setLogged(false)
     }
 
@@ -20,20 +21,46 @@ export default function HeaderAdmin(props) {
                     <nav className={"vertical-menu"}>
                         <li>
                             <Link to={"/admin"}>
-                                {/* <img src={`${window.location.origin}/content/svg/home-house-white.svg`} alt={""} /> */}
+                                <img src={`${window.location.origin}/content/svg/home-house-white.svg`} alt={""} />
                                 <span>Home</span>
                             </Link>
                         </li>
                         <li>
                             <Link to={"/admin/profile"}>
-                                {/* <img src={`${window.location.origin}/content/svg/avatar-white.svg`} alt={""} /> */}
+                                <img src={`${window.location.origin}/content/svg/avatar-white.svg`} alt={""} />
                                 <span>Profile</span>
                             </Link>
                         </li>
-                        <li><Link to={"/admin/user"}>Users</Link></li>
-                        <li><Link to={"/admin/history-games"}>Games history</Link></li>
-                        <li><Link to={"/admin/quiz"}>Question</Link></li>
-                        <li><Link to={"/admin/contact"}>Contact</Link></li>
+                        <li>
+                            <Link to={"/admin/user"}>
+                                <img src={`${window.location.origin}/content/svg/users-white.svg`} alt={""} />
+                                <span>Users</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to={"/admin/history-games"}>
+                                <img src={`${window.location.origin}/content/svg/controller-joystick-white.svg`} alt={""} />
+                                <span>Games history</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to={"/admin/category"}>
+                                <img src={`${window.location.origin}/content/svg/questionmark-white.svg`} alt={""} />
+                                <span>Category</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to={"/admin/quiz"}>
+                                <img src={`${window.location.origin}/content/svg/questionmark-white.svg`} alt={""} />
+                                <span>Question</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to={"/admin/contact"}>
+                                <img src={`${window.location.origin}/content/svg/envelop-white.svg`} alt={""} />
+                                <span>Contact</span>
+                            </Link>
+                        </li>
                         <li>
                             <button className={"btn btn-red"} onClick={(e) => handleLogout(e)}>Logout</button>
                         </li>
@@ -57,6 +84,7 @@ export default function HeaderAdmin(props) {
                                     <li><Link to={"/admin/profile"}>Profile</Link></li>
                                     <li><Link to={"/admin/user"}>Users</Link></li>
                                     <li><Link to={"/admin/history-games"}>Games history</Link></li>
+                                    <li><Link to={"/admin/category"}>Category</Link></li>
                                     <li><Link to={"/admin/quiz"}>Question</Link></li>
                                     <li><Link to={"/admin/contact"}>Contact</Link></li>
                                     <li>

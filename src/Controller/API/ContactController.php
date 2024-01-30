@@ -33,7 +33,7 @@ class ContactController extends AbstractController
         return $this->json([
             "offset" => $offset,
             "maxOffset" => ceil($this->contactRepository->countAll() / $limit),
-            "data" => $this->serializeManager->serializeContent(
+            "results" => $this->serializeManager->serializeContent(
                 $this->contactRepository->findBy([], ["created_at" => "DESC"], $limit, ($offset - 1) * $limit)
             )
         ], Response::HTTP_ACCEPTED);
@@ -77,9 +77,10 @@ class ContactController extends AbstractController
             ], Response::HTTP_NOT_FOUND);
         }
 
-        return $this->json([
-            "data" => $this->serializeManager->serializeContent($contact)
-        ], Response::HTTP_OK);
+        return $this->json(
+            $this->serializeManager->serializeContent($contact), 
+            Response::HTTP_OK
+        );
     }
     
     #[Route("/contact/{:contactID}/remove", name: "get_contact", methods: ["DELETE"])]

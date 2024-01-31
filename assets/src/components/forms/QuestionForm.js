@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { findParent } from "../utils/DomControl";
 import Notification from "../parts/Notification";
 import AnswersField from "./parts/AnswersField";
 import CategoriesField from "./parts/CategoriesField";
@@ -16,7 +15,7 @@ export default function QuestionForm({question = null}) {
     const [credentials, setCredentials] = useState(question ?? {
         question: "",
         difficulty: "",
-        multiple_answer: false,
+        multipleAnswer: false,
         category: [],
         answers: []
     })
@@ -31,18 +30,20 @@ export default function QuestionForm({question = null}) {
     const handleChange = (e, fieldName) => {
         setCredentials({
             ...credentials,
-            [fieldName]: e.currentTarget.value
+            [fieldName]: fieldName == "multipleAnswer" ? e.currentTarget.checked : e.currentTarget.value
         })
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        console.log(credentials)
-        return
+        let url = `${window.location.origin}/api/question`
+        if(question) {
+            url = `${window.location.origin}/api/question/${question.id}/update`
+        }
 
         axios
-            .post(`${window.location.origin}/api/question`, credentials, {
+            .post(url, credentials, {
                 headers: {
                     "Content-Type": "application/json",
                     "Accept": "application/json+ld",
@@ -54,6 +55,13 @@ export default function QuestionForm({question = null}) {
                     response,
                     response.data
                 )
+
+                let successMessage = "The question has been successfully created"
+                if(question) {
+                    successMessage = "The question has been successfully updated"
+                }
+
+                setFormResponse({classname: "success", message: successMessage})
             })
             .catch((error) => {
                 if(error.status == 401) {
@@ -77,7 +85,7 @@ export default function QuestionForm({question = null}) {
                 <Notification {...formResponse} />
             )}
 
-            <CategoriesField handleChange={handleChange} />
+            <CategoriesField category={credentials.category} handleChange={handleChange} />
             
             <DifficultyField difficulty={credentials.difficulty} handleChange={handleChange} />
             
@@ -86,6 +94,7 @@ export default function QuestionForm({question = null}) {
                     type={"text"} 
                     placeholder={"Question"} 
                     maxLength={255} 
+                    value={credentials.question}
                     onChange={(e) => handleChange(e, "question")} 
                     required 
                 />
@@ -93,12 +102,16 @@ export default function QuestionForm({question = null}) {
 
             <div className={"form-field"}>
                 <label>
-                    <input type={"checkbox"} onChange={(e) => handleChange(e, "mulitple_answer")} />
+                    <input 
+                        type={"checkbox"} 
+                        onChange={(e) => handleChange(e, "multipleAnswer")} 
+                        checked={credentials.multipleAnswer}
+                    />
                     <span>Allow muliple answer</span>
                 </label>
             </div>
             
-            <AnswersField answerRowID={answerRowID} updateCredentials={updateCredentials} />
+            <AnswersField answers={credentials.answers} answerRowID={answerRowID} updateCredentials={updateCredentials} />
             
             <div className={"form-button"}>
                 <button type={"submit"} className={"btn btn-blue"}>Submit</button>

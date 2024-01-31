@@ -21,11 +21,11 @@ export default function QuizForm() {
             <Link className={"btn btn-palette-four"} to={"/admin/quiz"}>Return</Link>
 
             <div className={"mt-25"}>
-                {!loading ? (
+                {!loading && Object.keys(question).length > 0 ? (
                     <div className={"card"}>
                         <div className={"-header"}></div>
                         <div className={"-content"}>
-                            <QuestionForm question={question.data} />
+                            <QuestionForm question={question} />
                         </div>
                     </div>
                 ) : (

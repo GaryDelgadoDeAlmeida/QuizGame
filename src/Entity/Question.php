@@ -33,7 +33,7 @@ class Question
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\OneToMany(mappedBy: 'question', targetEntity: Answer::class)]
+    #[ORM\OneToMany(mappedBy: 'question', targetEntity: Answer::class, cascade: ["remove", "persist"])]
     private Collection $answers;
 
     #[ORM\OneToMany(mappedBy: 'given_question', targetEntity: GameDetail::class)]

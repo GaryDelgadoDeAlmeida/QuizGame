@@ -18,7 +18,7 @@ export default function CategoriesField({category = null, handleChange}) {
                         <option 
                             key={index} 
                             value={item.labelKey} 
-                            defaultChecked={category && category.labelKey == item.labelKey ? true : false}
+                            selected={category && category.labelKey == item.labelKey ? true : false}
                         >{item.label}</option>
                     ))}
                 </select>

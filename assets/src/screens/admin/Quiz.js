@@ -1,12 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import HeaderAdmin from "../../components/parts/HeaderAdmin";
 import Notification from "../../components/parts/Notification";
 import PrivateRessource from "../../components/utils/PrivateRessource";
+import { findParent } from "../../components/utils/DomControl";
 import axios from "axios";
 
 export default function Quiz() {
 
+    const user = JSON.parse(localStorage.getItem("user"))
+    const navigate = useNavigate()
     const [offset, setOffset] = useState(1)
     const { loading, items: questions, load, error } = PrivateRessource(`${window.location.origin}/api/questions?offset=${offset}`)
 
@@ -32,11 +35,30 @@ export default function Quiz() {
         }
 
         axios
-            .delete(`${window.location.origin}/api/question/${questionID}/remove`)
-            .then((response) => {
-                // 
+            .delete(`${window.location.origin}/api/question/${questionID}/remove`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + user.token
+                }
             })
-            .catch((error) => {})
+            .then((response) => {
+                questionItem.remove()
+            })
+            .catch((error) => {
+                if(error.status == 401) {
+                    navigate("/admin-login")
+                    return
+                }
+
+                let errorMessage = "An error has been encountered. Please, retry later"
+                if(error.response.data.detail) {
+                    errorMessage = error.response.data.detail
+                } else if(error.response.data.message) {
+                    errorMessage = error.response.data.message
+                }
+                
+                alert(errorMessage)
+            })
         ;
     }
 

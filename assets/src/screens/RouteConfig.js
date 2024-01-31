@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 
 // Anonymous
@@ -30,8 +30,6 @@ import AdminContact from "./admin/Contact";
 import AdminContactDetail from "./admin/ContactDetail";
 
 export default function RouteConfig() {
-
-    const [token, setToken] = useState(localStorage.getItem("token"))
 
     return (
         <>

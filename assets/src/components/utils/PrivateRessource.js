@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -10,10 +10,17 @@ export default function PrivateResources(route) {
     const [loading, setLoading] = useState(false)
     let 
         items = useRef({}),
-        error = useRef({})
+        error = useRef({}),
+        storageUser = localStorage.getItem("user"),
+        user = storageUser.length > 0 ? JSON.parse(storageUser) : []
     ;
 
-    let user = JSON.parse(localStorage.getItem("user"))
+    useEffect(() => {
+        if(storageUser.length == 0) {
+            navigate("/login")
+            return
+        }
+    }, [storageUser])
     
     const load = useCallback(async () => {
         setLoading(true)
@@ -35,10 +42,6 @@ export default function PrivateResources(route) {
         ;
 
         if(Object.keys(error.current).length > 0 && error.current.response.status == 401) {
-            console.log(
-                error.current,
-                error.current.response
-            )
             localStorage.setItem("user", "")
             alert(error.current.response.data.message)
             navigate(user.role == "ROLE_ADMIN" ? "/admin-login" : "/login")

@@ -28,7 +28,7 @@ export default function DifficultyField({difficulty, handleChange}) {
                     <option 
                         key={index}
                         value={item.value} 
-                        defaultChecked={difficulty == item.value ? true : false}
+                        selected={difficulty == item.value ? true : false}
                     >{item.text}</option>
                 ))}
             </select>

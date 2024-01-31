@@ -7,13 +7,17 @@ export default function AnswersField({answerRowID, answers, updateCredentials}) 
     const [count, setCount] = useState(answers ? answers.length : 1)
     const [credentialAnswers, setCredentialAnswers] = useState(answers ?? [])
 
-    const handleNewRow = (e) => {
+    useEffect(() => {
+        updateParentAnswers()
+    }, [credentialAnswers])
+
+    const handleNewRow = () => {
         setCredentialAnswers({
             ...credentialAnswers,
             [count]: {
                 rowID: count,
                 answer: "",
-                is_answer: false
+                isAnswer: false
             }
         })
         setCount(count + 1)
@@ -27,7 +31,7 @@ export default function AnswersField({answerRowID, answers, updateCredentials}) 
             ...credentialAnswers,
             [row]: {
                 ...credentialAnswers[row],
-                [fieldName]: fieldName == "is_answer" 
+                [fieldName]: fieldName == "isAnswer" 
                     ? e.currentTarget.checked 
                     : e.currentTarget.value
             }
@@ -50,17 +54,13 @@ export default function AnswersField({answerRowID, answers, updateCredentials}) 
         updateCredentials("answers", credentialAnswers)
     }
 
-    useEffect(() => {
-        updateParentAnswers()
-    }, [credentialAnswers])
-
     return (
         <div className={"form-field"}>
             <label htmlFor={"answers"}>Answers</label>
             
             <div id={"answers"}>
                 {Object.values(credentialAnswers).map((item, index) => (
-                    <div key={index} id={`${answerRowID}${item.rowID}`} className={"form-field-inline"}>
+                    <div key={index} id={`${answerRowID}${item.rowID ?? item.id}`} className={"form-field-inline"}>
                         <div className={"form-field"}>
                             <input 
                                 type={"text"} 
@@ -72,8 +72,8 @@ export default function AnswersField({answerRowID, answers, updateCredentials}) 
                             <label>
                                 <input 
                                     type={"checkbox"} 
-                                    onChange={(e) => handleChangeAnswers(e, "is_answer")} 
-                                    checked={item.is_answer} 
+                                    onChange={(e) => handleChangeAnswers(e, "isAnswer")} 
+                                    checked={item.isAnswer} 
                                 />
                                 <span>Is answer</span>
                             </label>
@@ -86,7 +86,7 @@ export default function AnswersField({answerRowID, answers, updateCredentials}) 
             </div>
             
             <div className={"form-button force-txt-left m-tb-auto"}>
-                <button type={"button"} className={"btn btn-blue -inline-flex"} onClick={(e) => handleNewRow(e)}>
+                <button type={"button"} className={"btn btn-blue -inline-flex"} onClick={handleNewRow}>
                     <img src={`${window.location.origin}/content/svg/plus-white.svg`} alt={""} />
                 </button>
             </div>

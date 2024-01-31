@@ -15,7 +15,7 @@ class Answer
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'answers')]
+    #[ORM\ManyToOne(inversedBy: 'answers', cascade: ["remove", "persist"])]
     private ?Question $question = null;
 
     #[ORM\Column(length: 255)]

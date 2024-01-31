@@ -17,7 +17,7 @@ export default function Home() {
         const content = []
         for(let $i = 0; $i < 7; $i++) {
             content.push((
-                <tr>
+                <tr key={$i}>
                     <td>17/01/2024</td>
                     <td>Education</td>
                     <td>

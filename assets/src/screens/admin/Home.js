@@ -6,7 +6,6 @@ import PrivateResources from "../../components/utils/PrivateRessource";
 
 export default function Home() {
 
-    const user = JSON.parse(localStorage.getItem("user"))
     const {loading, items, load, error} = PrivateResources(`${window.location.origin}/api/general/admin`)
 
     useEffect(() => {

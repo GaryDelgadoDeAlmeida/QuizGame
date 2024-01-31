@@ -1,26 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { generateCheckboxField, generateFormField, generateFormFieldInline, generateInput } from "../../utils/GenerateDomElement";
 import { findParent } from "../../utils/DomControl";
 
 export default function AnswersField({answerRowID, answers, updateCredentials}) {
 
-    const [count, setCount] = useState(answers ? answers.length : 1)
     const [credentialAnswers, setCredentialAnswers] = useState(answers ?? [])
+    let keys = Object.keys(credentialAnswers)
 
     useEffect(() => {
         updateParentAnswers()
     }, [credentialAnswers])
 
     const handleNewRow = () => {
+        let $max = 0
+        keys.map((item) => {
+            if($max < parseInt(item)) {
+                $max = parseInt(item)
+            }
+        })
+        $max += 1
+        
         setCredentialAnswers({
             ...credentialAnswers,
-            [count]: {
-                rowID: count,
+            [$max]: {
+                rowID: $max,
                 answer: "",
                 isAnswer: false
             }
         })
-        setCount(count + 1)
     }
 
     const handleChangeAnswers = (e, fieldName) => {
@@ -53,14 +60,13 @@ export default function AnswersField({answerRowID, answers, updateCredentials}) 
     const updateParentAnswers = () => {
         updateCredentials("answers", credentialAnswers)
     }
-
     return (
         <div className={"form-field"}>
             <label htmlFor={"answers"}>Answers</label>
             
             <div id={"answers"}>
                 {Object.values(credentialAnswers).map((item, index) => (
-                    <div key={index} id={`${answerRowID}${item.rowID ?? item.id}`} className={"form-field-inline"}>
+                    <div key={index} id={`${answerRowID}${keys[index]}`} className={"form-field-inline"}>
                         <div className={"form-field"}>
                             <input 
                                 type={"text"} 

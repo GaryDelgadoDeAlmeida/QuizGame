@@ -51,11 +51,6 @@ export default function QuestionForm({question = null}) {
                 }
             })
             .then((response) => {
-                console.log(
-                    response,
-                    response.data
-                )
-
                 let successMessage = "The question has been successfully created"
                 if(question) {
                     successMessage = "The question has been successfully updated"

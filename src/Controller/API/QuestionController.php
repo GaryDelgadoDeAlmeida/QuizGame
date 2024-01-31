@@ -150,9 +150,10 @@ class QuestionController extends AbstractController
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return $this->json([
-            "message" => "Route under construction"
-        ], Response::HTTP_ACCEPTED);
+        return $this->json(
+            $this->serializeManager->serializeContent($question), 
+            Response::HTTP_ACCEPTED
+        );
     }
 
     #[Route("/question/{questionID}/remove", name: "remove_question", methods: ["DELETE"])]

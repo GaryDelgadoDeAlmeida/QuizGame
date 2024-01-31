@@ -138,13 +138,6 @@ export default function HeaderAdmin(props) {
                     <div className={"page-wrapper"}>
                         {props.children}
                     </div>
-                    <div className={"page-footer"}>
-                        <div className={"footer-wrapper"}>
-                            <div className={"footer-copyright"}>
-                                <p>Copyright &copy; {(new Date()).toLocaleDateString("en-US", {year: 'numeric'})} &minus; Quiz Game</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </>

@@ -112,6 +112,7 @@ html, body {
                 height: 100%;
                 position: fixed;
                 transition: .3s;
+                overflow: scroll;
                 background-color: var(--c-palette-one);
 
                 .mobile-menu-widget {

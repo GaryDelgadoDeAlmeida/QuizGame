@@ -31,6 +31,7 @@
             height: 100%;
             display: flex;
             padding: 25px;
+            overflow: scroll;
             flex-direction: column;
 
             li {
@@ -61,7 +62,7 @@
                     }
 
                     img {
-                        width: 35px;
+                        width: 25px;
                     }
                 }
 
@@ -120,6 +121,7 @@
                 height: 100%;
                 position: fixed;
                 transition: .5s;
+                overflow: scroll;
                 background-color: var(--c-palette-one);
 
                 .mobile-menu-widget {
@@ -136,8 +138,10 @@
                             display: flex;
     
                             a {
+                                gap: 15px;
                                 width: 100%;
                                 padding: 25px;
+                                display: flex;
                                 text-transform: none;
                                 color: var(--c-white);
                                 text-decoration: none;
@@ -146,6 +150,14 @@
                                     transition: .3s;
                                     color: var(--c-color);
                                     background-color: var(--c-palette-four);
+                                }
+
+                                span, img {
+                                    margin: auto 0;
+                                }
+            
+                                img {
+                                    width: 25px;
                                 }
                             }
             

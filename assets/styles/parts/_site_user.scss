@@ -31,6 +31,7 @@
             height: 100%;
             display: flex;
             padding: 25px;
+            overflow: scroll;
             flex-direction: column;
 
             li {
@@ -119,6 +120,7 @@
                 height: 100%;
                 position: fixed;
                 transition: .5s;
+                overflow: scroll;
                 background-color: var(--c-palette-one);
 
                 .mobile-menu-widget {

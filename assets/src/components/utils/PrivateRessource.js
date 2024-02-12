@@ -51,5 +51,10 @@ export default function PrivateResources(route) {
         setLoading(false)
     }, [route])
 
-    return {loading, items: items.current, load, error: error.current}
+    return {
+        loading, 
+        items: items.current, 
+        load, 
+        error: error.current
+    }
 }

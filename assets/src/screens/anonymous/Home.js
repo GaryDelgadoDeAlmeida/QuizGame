@@ -80,45 +80,62 @@ export default function Home() {
                     <h2 className={"page-title"}>Défiez le monde et obtenez le podium</h2>
 
                     <div className={"page-section-content"}>
-                        <table className={"best-score"}>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <img src={`${window.location.origin}/content/svg/medal-gold-winner.svg`} alt={""} />
-                                    </td>
-                                    <td>[ ]</td>
-                                    <td>100 points</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src={`${window.location.origin}/content/svg/medal-silver-badge.svg`} alt={""} />
-                                    </td>
-                                    <td>Galaxy-Eyes</td>
-                                    <td>100 points</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <img src={`${window.location.origin}/content/svg/medal-bronze-price.svg`} alt={""} />
-                                    </td>
-                                    <td>Username</td>
-                                    <td>100 points</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span className={"-classment"}>4</span>
-                                    </td>
-                                    <td>Username</td>
-                                    <td>100 points</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span className={"-classment"}>5</span>
-                                    </td>
-                                    <td>Username</td>
-                                    <td>100 points</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        
+                        <div className={"best-score-card -first"}>
+                            <div className={""}>
+                                <img src={`${window.location.origin}/content/svg/medal-gold-winner.svg`} alt={""} />
+                            </div>
+                            <div className={""}>
+                                <span>[ ]</span>
+                            </div>
+                            <div className={""}>
+                                <span>100 points</span>
+                            </div>
+                        </div>
+                        <div className={"best-score-card -second"}>
+                            <div className={""}>
+                            <img src={`${window.location.origin}/content/svg/medal-silver-badge.svg`} alt={""} />
+                            </div>
+                            <div className={""}>
+                                <span>Galaxy-Eyes</span>
+                            </div>
+                            <div className={""}>
+                                <span>100 points</span>
+                            </div>
+                        </div>
+                        <div className={"best-score-card -third"}>
+                            <div className={""}>
+                                <img src={`${window.location.origin}/content/svg/medal-bronze-prize.svg`} alt={""} />
+                            </div>
+                            <div className={""}>
+                                <span>Username</span>
+                            </div>
+                            <div className={""}>
+                                <span>100 points</span>
+                            </div>
+                        </div>
+                        <div className={"best-score-card -others"}>
+                            <div className={""}>
+                                <span className={"-classment"}>4</span>
+                            </div>
+                            <div className={""}>
+                                <span>Username</span>
+                            </div>
+                            <div className={""}>
+                                <span>100 points</span>
+                            </div>
+                        </div>
+                        <div className={"best-score-card -others"}>
+                            <div className={""}>
+                                <span className={"-classment"}>5</span>
+                            </div>
+                            <div className={""}>
+                                <span>Username</span>
+                            </div>
+                            <div className={""}>
+                                <span>100 points</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

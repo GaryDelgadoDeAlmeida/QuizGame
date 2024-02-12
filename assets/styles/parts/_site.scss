@@ -26,6 +26,7 @@ html, body {
         background-color: var(--c-palette-one);
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.17);
 
+        // Desktop version of the menu
         .header-menu {
             display: flex;
             padding: 25px 50px;
@@ -74,6 +75,7 @@ html, body {
             }
         }
 
+        // Mobile version of the menu
         .header-mobile-menu {
             display: none;
             padding: 0 25px;
@@ -261,20 +263,71 @@ html, body {
 
             .page-section-content-grid {
                 gap: 25px;
-                display: flex;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
 
                 @include tablet {
-                    flex-direction: column;
+                    grid-template-columns: repeat(1, 1fr);
                 }
 
                 .-content {
                     flex: 1;
+
+                    .-section-suptitle {
+                        font-size: 1rem;
+                        font-weight: 600;
+                        text-transform: uppercase;
+                        color: var(--c-palette-four);
+                    }
+                    
+                    .-section-title {
+                        margin-top: 10px;
+                        font-size: 2rem;
+                        font-weight: 600;
+                    }
+                    
+                    .-section-desc {
+                        font-size: 1rem;
+                        padding: 1rem 0 3rem 0;
+                    }
+                    
+                    .-desc-list {
+                        font-size: 1rem;
+                        
+                        .-desc-item {
+                            gap: 15px;
+                            display: flex;
+                            margin: auto 0;
+
+                            &:not(:last-child) {
+                                margin-bottom: 2rem;
+                            }
+
+                            img {
+                                width: 35px;
+                                height: 35px;
+                                margin: auto 0;
+                                border-radius: 50%;
+                                background-color: var(--c-dimmGray);
+                            }
+
+                            p {
+                                margin: auto 0;
+                                font-size: 1.1rem;
+                            }
+                        }
+                    }
                 }
                 
                 .-image {
                     width: 100%;
-                    max-width: 500px;
+                    margin: auto 0;
+                    max-width: 400px;
                     text-align: center;
+
+                    @include tablet {
+                        max-width: 100%;
+                    }
 
                     img {
                         width: 100%;

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Question;
 use Doctrine\Persistence\ManagerRegistry;
+use DoctrineExtensions\Query\Mysql\Rand;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
@@ -37,6 +38,23 @@ class QuestionRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * @param string category
+     * @param int limit
+     * @return Question[] Return an array of Question object
+     */
+    public function getQuestionsForGame(string $category, int $limit) : array {
+        return $this->createQueryBuilder('question')
+            ->leftJoin('question.category', 'category')
+            ->where('category.label = :category')
+            ->orderBy('RAND()')
+            ->setParameter('category', $category)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
     /**

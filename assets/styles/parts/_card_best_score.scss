@@ -1,0 +1,32 @@
+.best-score-card {
+    padding: 10px;
+    display: flex;
+    border-radius: 15px;
+    color: var(--c-black);
+    justify-content: space-between;
+    background-color: var(--c-palette-four);
+
+    &:not(:last-child) {
+        margin-bottom: 15px;
+    }
+
+    &.-first {
+        color: var(--c-white);
+        background-color: var(--c-palette-one);
+        border: 2px solid var(--c-palette-four);
+    }
+
+    &.-second {
+        color: var(--c-white);
+        background-color: var(--c-palette-two);
+    }
+
+    &.-third {
+        color: var(--c-white);
+        background-color: var(--c-palette-three);
+    }
+
+    img {
+        width: 25px;
+    }
+}

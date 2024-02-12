@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
-import { generateCheckboxField, generateFormField, generateFormFieldInline, generateInput } from "../../utils/GenerateDomElement";
+import React, { useEffect, useState } from "react";
 import { findParent } from "../../utils/DomControl";
 
 export default function AnswersField({answerRowID, answers, updateCredentials}) {
@@ -60,6 +59,7 @@ export default function AnswersField({answerRowID, answers, updateCredentials}) 
     const updateParentAnswers = () => {
         updateCredentials("answers", credentialAnswers)
     }
+
     return (
         <div className={"form-field"}>
             <label htmlFor={"answers"}>Answers</label>

@@ -20,6 +20,13 @@ button {
     border: 1px solid transparent;
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
+    &:disabled, &:disabled:hover {
+        cursor: auto;
+        border: none !important;
+        color: var(--c-black) !important;
+        background-color: var(--c-silver) !important;
+    }
+
     &.-inline-flex {
         gap: 10px;
         display: inline-flex;

@@ -1,0 +1,36 @@
+.score-card {
+    display: flex;
+    justify-content: center;
+
+    .card-widget {
+        width: 100%;
+        padding: 25px;
+        font-size: 1rem;
+        max-width: 600px;
+        text-align: center;
+        border-radius: 15px;
+        color: var(--c-white);
+        background-color: var(--c-palette-one);
+
+        .score {
+            margin: 25px 0;
+            font-size: 3rem;
+            color: var(--c-palette-four);
+        }
+    
+        .bad-answers {
+            font-size: 1.5rem;
+            color: var(--c-red);
+        }
+    
+        .good-answers {
+            font-size: 1.5rem;
+            color: var(--c-green);
+        }
+
+        .answered-questions {
+            font-size: 1.5rem;
+            color: var(--c-blue);
+        }
+    }
+}

@@ -1,0 +1,81 @@
+.question-section {
+    display: flex;
+    justify-content: center;
+
+    .question-wrapper {
+        gap: 25px;
+        width: 100%;
+        display: flex;
+        max-width: 800px;
+        flex-direction: column;
+        justify-content: center;
+
+        .question {
+            height: 130px;
+            display: flex;
+            justify-content: center;
+            color: var(--c-palette-four);
+            background-color: var(--c-palette-one);
+            border: 3px solid var(--c-palette-four);
+
+            p {
+                margin: auto 0;
+            }
+        }
+
+        .answers {
+            grid-gap: 25px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+
+            .-answer {
+                padding: 0 25px;
+                height: 70px;
+                display: flex;
+                cursor: pointer;
+                align-items: center;
+                color: var(--c-palette-four);
+                background-color: var(--c-palette-one);
+                border: 3px solid var(--c-palette-four);
+
+                &.-active {
+                    font-weight: 600;
+                    color: var(--c-palette-one);
+                    border: 3px solid var(--c-palette-one);
+                    background-color: var(--c-palette-four);
+                }
+
+                &.-is-answer {
+                    background-color: var(--c-greenLime);
+                    border: 3px solid var(--c-palette-four);
+                }
+
+                &.-incorrect {
+                    background-color: var(--c-red);
+                    border: 3px solid var(--c-darkRed);
+                }
+            }
+        }
+
+        .question-submit {
+            text-align: right;
+
+            button {
+                width: 125px;
+                padding: 10px;
+                border-radius: 25px;
+                color: var(--c-palette-one);
+                border: 1px solid var(--c-palette-one);
+
+                &:not(:last-child) {
+                    margin-right: 15px;
+                }
+
+                &:hover {
+                    color: var(--c-palette-four);
+                    border: 1px solid var(--c-palette-four);
+                }
+            }
+        }
+    }
+}

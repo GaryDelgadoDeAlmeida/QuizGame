@@ -31,7 +31,6 @@ export default function LoginForm({adminConnect = false}) {
             })
             .then((response) => {
                 localStorage.setItem("user", JSON.stringify({
-                    time: Date.now(),
                     role: adminConnect ? "ROLE_ADMIN" : "ROLE_USER",
                     token: response.data.token
                 }))
@@ -39,8 +38,8 @@ export default function LoginForm({adminConnect = false}) {
             })
             .catch((error) => {
                 let errorMessage = "An error has been encountered"
-                if(error.response.data) {
-                    errorMessage = error.response.data
+                if(error.response.data.message) {
+                    errorMessage = error.response.data.message
                 }
 
                 setFormResponse({classname: "danger", message: errorMessage})

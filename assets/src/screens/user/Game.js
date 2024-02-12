@@ -29,10 +29,10 @@ export default function Game() {
         <HeaderUser>
             <div className={"page-section"}>
                 {!loading ? (
-                    Object.keys(categories.data ?? []).length > 0 ? (
+                    Object.keys(categories.results ?? []).length > 0 ? (
                         <>
                             <div className={"d-grid -col-3 -t-col-2 -m-col-1"}>
-                                {Object.values(categories.data).map((category, index) => (
+                                {Object.values(categories.results).map((category, index) => (
                                     <div key={index} className={"category-card"} onClick={(e) => handleGameConfig(e, category.labelKey)}>
                                         <div className={"-content"}>
                                             <label className={"-title"}>{category.label}</label>

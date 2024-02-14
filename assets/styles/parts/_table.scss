@@ -112,7 +112,7 @@
                 @include tablet {
                     text-align: left;
                     width: fit-content;
-                    padding-left: 100px;
+                    padding-left: 125px;
 
                     &:not(:last-child) {
                         margin-bottom: 15px;
@@ -124,7 +124,7 @@
                         color: var(--c-dimmGray);
                     }
 
-                    // Quiz - Questio
+                    // Quiz - Question
                     &.-question::before {
                         content: "Question";
                     }
@@ -144,6 +144,19 @@
 
                     &.-role::before {
                         content: "Role";
+                    }
+
+                    // Game - Quiz
+                    &.-date::before {
+                        content: "Date";
+                    }
+
+                    &.-nbr-questions::before {
+                        content: "Nbr questions";
+                    }
+
+                    &.-score::before {
+                        content: "Score";
                     }
 
                     // Common

@@ -62,6 +62,8 @@ export default function Quiz() {
         ;
     }
 
+    console.log(questions)
+
     return (
         <HeaderAdmin>
             <Link className={"btn btn-palette-four"} to={"/admin/quiz/create"}>Add a question</Link>
@@ -73,6 +75,7 @@ export default function Quiz() {
                             <thead>
                                 <tr>
                                     <th>Question</th>
+                                    <th>Difficulty</th>
                                     <th>Category</th>
                                     <th>Answers</th>
                                     <th></th>
@@ -83,6 +86,7 @@ export default function Quiz() {
                                     Object.values(questions.results).map((itemQuestion, index) => (
                                         <tr className={"questionItem"} key={index}>
                                             <td className={"-question"}>{itemQuestion.question}</td>
+                                            <td className={"-difficulty"}>{itemQuestion.difficulty}</td>
                                             <td className={"-category"}>{itemQuestion.category.label}</td>
                                             <td className={"-answers txt-left"}>
                                                 {itemQuestion.answers.map((questionChoice, answerIndex) => (

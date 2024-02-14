@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import HeaderUser from "../../components/parts/HeaderUser";
 import Notification from "../../components/parts/Notification";
 import PrivateResources from "../../components/utils/PrivateRessource";
@@ -7,7 +7,9 @@ import Answer from "../../components/parts/Answer";
 import axios from "axios";
 import FinalScore from "../../components/parts/FinalScore";
 
-export default function GameStart({category, nbrQuestions}) {
+export default function GameStart() {
+
+    const { state } = useLocation()
 
     const storageUser = localStorage.getItem("user")
     const user = JSON.parse(storageUser ?? [])
@@ -20,7 +22,7 @@ export default function GameStart({category, nbrQuestions}) {
         questions: []
     })
     const [answer, setAnswer] = useState("")
-    const { loading, items, load, error } = PrivateResources(`${window.location.origin}/api/game/questions?category=${category}&nbr_questions=${nbrQuestions}`)
+    const { loading, items, load, error } = PrivateResources(`${window.location.origin}/api/game/questions?category=${state.category}&nbr_questions=${state.nbr_questions}`)
     
     useEffect(() => {
         load()
@@ -34,7 +36,7 @@ export default function GameStart({category, nbrQuestions}) {
     // }, [offset])
 
     const handleAnswer = (e) => {
-        if(Object.keys(credentials[offset] ?? []).length > 0) {
+        if(Object.keys(credentials.questions[offset] ?? []).length > 0) {
             return
         }
 
@@ -76,7 +78,7 @@ export default function GameStart({category, nbrQuestions}) {
         setOffset(offset + 1)
     }
 
-    console.log(items.results)
+    console.log(items)
 
     const handleEndGame = () => {
         axios

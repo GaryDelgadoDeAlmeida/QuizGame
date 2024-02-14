@@ -1,5 +1,5 @@
 import React from "react";
-import GameConfig from "../parts/GameConfig";
+import PopupGameConfig from "../parts/PopupGameConfig";
 
 export default function CategoryCard({label, labelKey, subText}) {
 
@@ -7,7 +7,7 @@ export default function CategoryCard({label, labelKey, subText}) {
         e.preventDefault()
         
         return (
-            <GameConfig category={category_key} />
+            <PopupGameConfig category={category_key} />
         )
     }
 

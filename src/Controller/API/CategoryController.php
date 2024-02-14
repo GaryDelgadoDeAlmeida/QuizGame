@@ -39,7 +39,7 @@ class CategoryController extends AbstractController
         if($request->get("fields", null) == "all") {
             $response = [
                 "nbrCategories" => $this->categoryRepository->countCategories(),
-                "results" => $this->categoryRepository->findAll()
+                "results" => $this->categoryRepository->getCategoriesFormFields()
             ];
         } else {
             $limit = 15;
@@ -48,7 +48,7 @@ class CategoryController extends AbstractController
             $response = [
                 "offset" => $offset,
                 "maxOffset" => ceil($this->categoryRepository->countCategories() / $limit),
-                "results" => $this->categoryRepository->findBy([], ["label" => "ASC"], $limit, ($offset - 1) * $limit)
+                "results" => $this->categoryRepository->getCategories($offset, $limit)
             ];
         }
 

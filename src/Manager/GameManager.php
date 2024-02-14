@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Manager;
+
 use App\Entity\Game;
 
 class GameManager {

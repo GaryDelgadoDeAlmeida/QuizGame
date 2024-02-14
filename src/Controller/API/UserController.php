@@ -83,6 +83,7 @@ class UserController extends AbstractController
         } catch(\Exeception $e) {
             return $this->json([
                 "data" => [
+                    "code" => Response::HTTP_INTERNAL_SERVER_ERROR,
                     "message" => $e->getMessage()
                 ]
             ], Response::HTTP_INTERNAL_SERVER_ERROR);

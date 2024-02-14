@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import HeaderUser from "../../components/parts/HeaderUser";
 import Notification from "../../components/parts/Notification";
+import CategoryCard from "../../components/parts/CategoryCard";
+import PopupGameConfig from "../../components/parts/PopupGameConfig";
 import PrivateRessource from "../../components/utils/PrivateRessource";
 
 export default function Game() {
 
+    const [modal, setModal] = useState({
+        showModal: false,
+        category_key: ""
+    })
     const [offset, setOffset] = useState(1)
     const {loading, items: categories, load, error} = PrivateRessource(`${window.location.origin}/api/categories?offset=${offset}`)
 
@@ -16,29 +22,43 @@ export default function Game() {
         e.preventDefault()
         setOffset(newOffset)
     }
-
-    const handleGameConfig = (e, category_key) => {
-        e.preventDefault()
-        
-        return (
-            <GameConfig category={category_key} />
-        )
+    
+    const handleModal = (e, show, category) => {
+        setModal({
+            showModal: show,
+            category_key: category
+        })
     }
 
     return (
         <HeaderUser>
+            {modal.showModal && (
+                <PopupGameConfig 
+                    category={modal.category_key} 
+                    handleClose={handleModal}
+                />
+            )}
+
             <div className={"page-section"}>
                 {!loading ? (
                     Object.keys(categories.results ?? []).length > 0 ? (
                         <>
                             <div className={"d-grid -col-3 -t-col-2 -m-col-1"}>
-                                {Object.values(categories.results).map((category, index) => (
-                                    <div key={index} className={"category-card"} onClick={(e) => handleGameConfig(e, category.labelKey)}>
+                                {Object.values(categories.results ?? []).map((category, index) => (
+                                    <div key={index} className={"category-card"} onClick={(e) => handleModal(e, true, category.label_key)}>
                                         <div className={"-content"}>
                                             <label className={"-title"}>{category.label}</label>
-                                            <span className={"-subtitle"}>Nbr questions</span>
+                                            <span className={"-subtitle"}>{category.nbrQuestions} questions</span>
                                         </div>
                                     </div>
+                                    
+                                    // <CategoryCard 
+                                    //     key={index} 
+                                    //     handleGameConfig={handleGameConfig}
+                                    //     label={category.label}
+                                    //     labelKey={category.labelKey}
+                                    //     subText={Object.keys(category.questions).length + " questions"}
+                                    // />
                                 ))}
                             </div>
 

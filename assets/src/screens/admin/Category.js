@@ -27,7 +27,7 @@ export default function Category() {
                                 key={index} 
                                 label={item.label} 
                                 labelKey={item.labelKey} 
-                                subText={`${item.questions.length} questions`} 
+                                subText={`${item.nbrQuestions} questions`} 
                             />
                         ))}
                     </div>

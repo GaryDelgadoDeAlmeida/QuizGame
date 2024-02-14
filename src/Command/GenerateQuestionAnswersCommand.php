@@ -62,7 +62,7 @@ class GenerateQuestionAnswersCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $currentTime = new \DateTimeImmutable();
         $limit = 50; // max limit of the API is 50 elements
-        $offset = 1;
+        $offset = 10;
         
         try {
             $api_response = $this->curlManager->callAPI("https://the-trivia-api.com/v2/questions?limit={$limit}&offset={$offset}");

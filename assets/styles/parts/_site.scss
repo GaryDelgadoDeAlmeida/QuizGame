@@ -175,6 +175,10 @@ html, body {
             margin: 0 auto;
             max-width: 1150px;
             width: calc(100% - 20rem);
+
+            @include mobile {
+                width: calc(100% - 5rem);
+            }
         }
 
         .page-hero {
@@ -281,8 +285,8 @@ html, body {
                     }
                     
                     .-section-title {
-                        margin-top: 10px;
                         font-size: 2rem;
+                        margin-top: 10px;
                         font-weight: 600;
                     }
                     

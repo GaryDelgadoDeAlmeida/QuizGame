@@ -15,7 +15,7 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className={"page-section -with-color-1"}>
+            <div className={"page-section -with-color-1"} id={"service"}>
                 <div className={"page-wrapper"}>
                     <div className={"page-section-content-grid"}>
                         <div className={"-content"}>
@@ -75,64 +75,64 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className={"page-section -with-color-1"}>
+            <div className={"page-section -with-color-1"} id={"best-scores"}>
                 <div className={"page-wrapper"}>
                     <h2 className={"page-title"}>Défiez le monde et obtenez le podium</h2>
 
-                    <div className={"page-section-content"}>
+                    <div className={"page-section-content mw-800px m-auto"}>
                         
                         <div className={"best-score-card -first"}>
-                            <div className={""}>
+                            <div className={"m-tb-auto"}>
                                 <img src={`${window.location.origin}/content/svg/medal-gold-winner.svg`} alt={""} />
                             </div>
-                            <div className={""}>
+                            <div className={"m-tb-auto"}>
                                 <span>[ ]</span>
                             </div>
-                            <div className={""}>
+                            <div className={"m-tb-auto"}>
                                 <span>100 points</span>
                             </div>
                         </div>
                         <div className={"best-score-card -second"}>
-                            <div className={""}>
+                            <div className={"m-tb-auto"}>
                             <img src={`${window.location.origin}/content/svg/medal-silver-badge.svg`} alt={""} />
                             </div>
-                            <div className={""}>
+                            <div className={"m-tb-auto"}>
                                 <span>Galaxy-Eyes</span>
                             </div>
-                            <div className={""}>
+                            <div className={"m-tb-auto"}>
                                 <span>100 points</span>
                             </div>
                         </div>
                         <div className={"best-score-card -third"}>
-                            <div className={""}>
+                            <div className={"m-tb-auto"}>
                                 <img src={`${window.location.origin}/content/svg/medal-bronze-prize.svg`} alt={""} />
                             </div>
-                            <div className={""}>
+                            <div className={"m-tb-auto"}>
                                 <span>Username</span>
                             </div>
-                            <div className={""}>
+                            <div className={"m-tb-auto"}>
                                 <span>100 points</span>
                             </div>
                         </div>
                         <div className={"best-score-card -others"}>
-                            <div className={""}>
+                            <div className={"m-tb-auto"}>
                                 <span className={"-classment"}>4</span>
                             </div>
-                            <div className={""}>
+                            <div className={"m-tb-auto"}>
                                 <span>Username</span>
                             </div>
-                            <div className={""}>
+                            <div className={"m-tb-auto"}>
                                 <span>100 points</span>
                             </div>
                         </div>
                         <div className={"best-score-card -others"}>
-                            <div className={""}>
+                            <div className={"m-tb-auto"}>
                                 <span className={"-classment"}>5</span>
                             </div>
-                            <div className={""}>
+                            <div className={"m-tb-auto"}>
                                 <span>Username</span>
                             </div>
-                            <div className={""}>
+                            <div className={"m-tb-auto"}>
                                 <span>100 points</span>
                             </div>
                         </div>
@@ -144,7 +144,7 @@ export default function Home() {
                 <div className={"page-wrapper"}>
                     <h2 className={"page-title"}>Inscrivez-vous à la newsletter</h2>
 
-                    <div className={"page-section-content"}>
+                    <div className={"page-section-content mw-800px m-auto"}>
                         <NewsletterForm />
                     </div>
                 </div>
@@ -154,7 +154,7 @@ export default function Home() {
                 <div className={"page-wrapper"}>
                     <h2 className={"page-title"}>Vous avez une question ? Contacter-nous</h2>
 
-                    <div className={"page-section-content"}>
+                    <div className={"page-section-content mw-800px m-auto"}>
                         <ContactForm />
                     </div>
                 </div>

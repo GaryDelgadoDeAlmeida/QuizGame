@@ -92,18 +92,26 @@ class GameController extends AbstractController
 
     #[Route("/game/questions", name: "get_game_questions", methods: ["GET"])]
     public function get_game_questions(Request $request) : JsonResponse {
-        $category = $request->get("category", "");
-        $nbrQuestions = $request->get("nbr_questions");
-        $nbrQuestions = is_numeric($nbrQuestions) ? $nbrQuestions : 10;
-
-        // Temporary => For test purpose
-        $category = "science";
-
-        $question = $this->questionRepository->getQuestionsForGame($category, $nbrQuestions);
+        $gameType = $request->get("gameType", "standard");
+        $question = [];
+        
+        if($gameType == "challenge") {
+            $question = $this->questionRepository->findBy([], ["id" => "DESC"], 1);
+        } else {
+            $category = $request->get("category", "");
+            $nbrQuestions = $request->get("nbr_questions");
+            $nbrQuestions = is_numeric($nbrQuestions) ? $nbrQuestions : 10;
+            $question = $this->questionRepository->getQuestionsForGame($category, $nbrQuestions);
+        }
 
         return $this->json([
             "results" => $this->serializeManager->serializeContent($question)
         ]);
+    }
+
+    #[Route("/game/challenge", name: "get_game_challenge", methods: ["GET"])]
+    public function get_game_challenge(): JsonResponse {
+        // 
     }
 
     #[Route("/game/latest", name: "get_latest_game", methods: ["GET"])]
@@ -117,7 +125,7 @@ class GameController extends AbstractController
         }
         
         return $this->json([
-            "data" => $this->serializeManager->serializeContent(
+            "results" => $this->serializeManager->serializeContent(
                 $this->gameRepository->findBy($filterParameters, ["created_at" => "DESC"], $limit, ($offset - 1) * $limit)
             )
         ], Response::HTTP_OK);

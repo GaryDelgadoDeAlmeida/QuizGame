@@ -41,6 +41,33 @@ class CategoryRepository extends ServiceEntityRepository
         }
     }
 
+    public function getCategoriesFormFields(): array {
+        return $this->createQueryBuilder("category")
+            ->select("category.id, category.label, category.label_key")
+            ->orderBy("category.label", "ASC")
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @param int offset
+     * @param int limit
+     * @return Category[]
+     */
+    public function getCategories(int $offset, int $limit): array {
+        return $this->createQueryBuilder("category")
+            ->select("category.id, category.label, category.label_key, COUNT(question.id) as nbrQuestions")
+            ->leftJoin("category.questions", "question")
+            ->groupBy("category.id")
+            ->setFirstResult(($offset - 1) * $limit)
+            ->setMaxResults($limit)
+            ->orderBy("category.label", "ASC")
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     /**
      * Count all category stored in the database
      * 

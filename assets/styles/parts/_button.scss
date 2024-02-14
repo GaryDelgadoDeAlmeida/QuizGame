@@ -57,6 +57,11 @@ button {
     &.btn-rounded {
         border-radius: 25px;
     }
+
+    &.btn-transparent {
+        border: none;
+        background-color: transparent;
+    }
     
     // Button to access other pages
     &.btn-blue {

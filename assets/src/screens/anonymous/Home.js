@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../../components/parts/Header";
-import { Link } from "react-router-dom";
 import ContactForm from "../../components/forms/ContactForm";
 import NewsletterForm from "../../components/forms/NewsletterForm";
+import ProtectedRessource from "../../components/utils/ProtectedRessource";
 
 export default function Home() {
 
+    const { loading, items, load, error } = ProtectedRessource(`${window.location.origin}/api/general`)
+    useEffect(() => {
+        load()
+    }, [])
+
     return (
         <Header>
+            {/* Hero section */}
             <div className={"page-hero"}>
                 <div className={"hero-wrapper"}>
                     <h1 className={"hero-title"}>QUIZ Game</h1>
@@ -15,6 +21,7 @@ export default function Home() {
                 </div>
             </div>
 
+            {/* Service section */}
             <div className={"page-section -with-color-1"} id={"service"}>
                 <div className={"page-wrapper"}>
                     <div className={"page-section-content-grid"}>
@@ -45,6 +52,7 @@ export default function Home() {
                 </div>
             </div>
             
+            {/* Service section 2 */}
             <div className={"page-section"}>
                 <div className={"page-wrapper"}>
                     <div className={"page-section-content-grid"}>
@@ -75,6 +83,7 @@ export default function Home() {
                 </div>
             </div>
 
+            {/* Best score section */}
             <div className={"page-section -with-color-1"} id={"best-scores"}>
                 <div className={"page-wrapper"}>
                     <h2 className={"page-title"}>Défiez le monde et obtenez le podium</h2>
@@ -140,6 +149,7 @@ export default function Home() {
                 </div>
             </div>
             
+            {/* Newsletter section */}
             <div className={"page-section -with-color-3"}>
                 <div className={"page-wrapper"}>
                     <h2 className={"page-title"}>Inscrivez-vous à la newsletter</h2>
@@ -150,6 +160,7 @@ export default function Home() {
                 </div>
             </div>
             
+            {/* Contact section */}
             <div className={"page-section"} id={"contact"}>
                 <div className={"page-wrapper"}>
                     <h2 className={"page-title"}>Vous avez une question ? Contacter-nous</h2>

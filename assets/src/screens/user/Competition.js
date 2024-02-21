@@ -2,17 +2,19 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import HeaderUser from "../../components/parts/HeaderUser";
 import Notification from "../../components/parts/Notification";
+import PrivateRessources from "../../components/utils/PrivateRessource";
 
 export default function Competition() {
 
     const navigation = useNavigate()
+    const { loading, items, load, error } = PrivateRessources(`${window.location.origin}/api/user`)
 
     const handleStart = () => {
         navigation("/user/game/start", {
             state: {
-                // gameType: "challenge",
-                category: "science",
-                nbr_questions: 10
+                mode: "challenge",
+                // category: "science",
+                // nbr_questions: 10
             }
         })
         return

@@ -1,4 +1,4 @@
-import React, { createElement, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import PrivateResources from "../utils/PrivateRessource";
 import Notification from "../parts/Notification";
 import { useNavigate } from "react-router-dom";
@@ -21,6 +21,12 @@ export default function GameConfigForm({category}) {
                 value: "challenge",
                 text: "Challenge"
             }
+        ],
+        difficulties: [
+            "all",
+            "easy", 
+            "medium",
+            "hard"
         ]
     }
 
@@ -30,6 +36,7 @@ export default function GameConfigForm({category}) {
     const [credentials, setCredentials] = useState({
         nbr_questions: 10,
         mode: "standard",
+        difficulty: "all",
         category: category
     })
 
@@ -71,6 +78,11 @@ export default function GameConfigForm({category}) {
             return
         }
 
+        if(credentials.mode.length == 0) {
+            setFormResponse({classname: "danger", message: "Veuillez sélectionner le mode du jeu"})
+            return
+        }
+
         navigation("/user/game/start", {
             state: {
                 ...credentials
@@ -100,6 +112,15 @@ export default function GameConfigForm({category}) {
                         <option value={""} defaultChecked>Select a mode for the quiz game</option>
                         {datas.modes.map((item, index) => (
                             <option key={index} value={item.value} selected={item.value == credentials.mode ? true : false}>{item.text}</option>
+                        ))}
+                    </select>
+                </div>
+                <div className={"form-field"}>
+                    <label htmlFor={"difficulty"}>Difficulty</label>
+                    <select id={"difficulty"} onChange={(e) => handleChange(e, "difficulty")}>
+                        <option value={""} defaultChecked>Select a difficulty for the quiz game</option>
+                        {datas.difficulties.map((item, index) => (
+                            <option key={index} value={item} selected={item == credentials.difficulty ? true : false}>{item}</option>
                         ))}
                     </select>
                 </div>

@@ -3,7 +3,8 @@ import { Link, Navigate } from "react-router-dom";
 
 export default function HeaderUser(props) {
 
-    const [logged, setLogged] = useState(localStorage.getItem("user") != "" ? true : false)
+    const storageUser = localStorage.getItem("user") ?? []
+    const [logged, setLogged] = useState(storageUser.length ? true : false)
     const handleLogout = (e) => {
         e.preventDefault()
         localStorage.setItem("user", "")

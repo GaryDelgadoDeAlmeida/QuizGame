@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
+import Answer from "../../components/parts/Answer";
 import HeaderUser from "../../components/parts/HeaderUser";
+import FinalScore from "../../components/parts/FinalScore";
 import Notification from "../../components/parts/Notification";
 import PrivateResources from "../../components/utils/PrivateRessource";
-import Answer from "../../components/parts/Answer";
 import axios from "axios";
-import FinalScore from "../../components/parts/FinalScore";
 
 export default function GameStart() {
 
     const { state } = useLocation()
+    if(Object.keys(state).length == 0) {
+        return <Navigate to={"/user/game"} />
+    }
 
     const storageUser = localStorage.getItem("user")
     const user = JSON.parse(storageUser ?? [])
@@ -22,7 +25,7 @@ export default function GameStart() {
         questions: []
     })
     const [answer, setAnswer] = useState("")
-    const { loading, items, load, error } = PrivateResources(`${window.location.origin}/api/game/questions?category=${state.category}&nbr_questions=${state.nbr_questions}`)
+    const { loading, items, load, error } = PrivateResources(`${window.location.origin}/api/game/questions?` + new URLSearchParams(state).toString())
     
     useEffect(() => {
         load()
@@ -78,8 +81,6 @@ export default function GameStart() {
         setOffset(offset + 1)
     }
 
-    console.log(items)
-
     const handleEndGame = () => {
         axios
             .post(`${window.location.origin}/api/game`, credentials, {
@@ -104,11 +105,26 @@ export default function GameStart() {
                         items.results[offset] ? (
                             <div className={"question-section"}>
                                 <div className={"question-wrapper"}>
+                                    <div className={"header"}>
+                                        <div className={"-category"}>
+                                            {state.mode !== "challenge" && (
+                                                <span>{state.category}</span>
+                                            )}
+                                        </div>
+
+                                        <div className={"-game-mode"}>
+                                            <span>{state.mode}</span>
+                                        </div>
+                                        
+                                        <div className={"-nbr-questions"}>
+                                            <span>{offset + 1} {state.mode !== "challenge" && ("/ " + state.nbr_questions)}</span>
+                                        </div>
+                                    </div>
                                     <div className={"question"}>
                                         <p>{items.results[offset].question}</p>
                                     </div>
                                     <div className={"answers"}>
-                                        {items.results[offset].answers.map((item, index) => (
+                                        {items.results[offset].randomAnswers.map((item, index) => (
                                             <Answer 
                                                 key={index}
                                                 credentialsQuestion={credentials.questions[offset] ?? []}

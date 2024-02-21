@@ -140,6 +140,13 @@ class Question
         return $this;
     }
 
+    public function getRandomAnswers() : Array {
+        $arrayToShuffle = $this->answers->toArray();
+        shuffle($arrayToShuffle);
+        
+        return $arrayToShuffle;
+    }
+
     public function removeAnswer(Answer $answer): static
     {
         if ($this->answers->removeElement($answer)) {

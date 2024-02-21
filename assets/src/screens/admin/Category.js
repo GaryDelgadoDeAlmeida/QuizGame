@@ -28,6 +28,7 @@ export default function Category() {
                                 label={item.label} 
                                 labelKey={item.labelKey} 
                                 subText={`${item.nbrQuestions} questions`} 
+                                path={`/admin/category/${item.id}`}
                             />
                         ))}
                     </div>

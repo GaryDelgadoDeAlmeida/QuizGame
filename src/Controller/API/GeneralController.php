@@ -30,7 +30,7 @@ class GeneralController extends AbstractController
         UserRepository $userRepository, 
         GameRepository $gameRepository,
         CategoryRepository $categoryRepository,
-        QuestionRepository $questionRepository
+        QuestionRepository $questionRepository,
     ) {
         $this->user = $security->getUser();
         $this->serializeManager = $serializeManager;
@@ -40,10 +40,19 @@ class GeneralController extends AbstractController
         $this->questionRepository = $questionRepository;
     }
 
+    #[Route("/", name: "get_anonymous_home", methods: ["GET"])]
+    public function get_anonymous_home() : JsonResponse {
+        return $this->json([
+            "results" => [
+                "bestScore" => $this->gameRepository->getBestScores(5)
+            ]
+        ], Response::HTTP_OK);
+    }
+
     #[Route("/user", name: "get_user_home", methods: ["GET"])]
     public function get_user_home() : JsonResponse {
         return $this->json([
-            "data" => [
+            "results" => [
                 "nbrGames" => $this->user->countGame(),
                 "bestScore" => $this->user->getBestScore(),
                 "nbrCategories" => $this->user->countPlayedCategory(),

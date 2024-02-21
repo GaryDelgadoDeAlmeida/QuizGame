@@ -46,10 +46,17 @@ class QuestionRepository extends ServiceEntityRepository
      * @return Question[] Return an array of Question object
      */
     public function getQuestionsForGame(string $category, int $limit) : array {
-        return $this->createQueryBuilder('question')
-            ->leftJoin('question.category', 'category')
-            ->where('category.label_key = :category')
-            ->setParameter('category', $category)
+        $qb = $this->createQueryBuilder('question');
+
+        if($category) {
+            $qb
+                ->leftJoin('question.category', 'category')
+                ->where('category.label_key = :category')
+                ->setParameter('category', $category)
+            ;
+        }
+
+        return $qb
             ->orderBy('RAND()')
             ->setMaxResults($limit)
             ->getQuery()

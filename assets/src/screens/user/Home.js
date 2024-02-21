@@ -34,13 +34,13 @@ export default function Home() {
     return (
         <HeaderUser>
             <div className={"page-section"}>
-                {!loading && Object.keys(items.data ?? []).length > 0 ? (
+                {!loading && Object.keys(items.results ?? []).length > 0 ? (
                     <>
                         <div className={"d-grid -col-4 -t-col-2 -col-1"}>
-                            <WidgetCard number={items.data.nbrGames} category={"Games"} />
-                            <WidgetCard number={items.data.bestScore} category={"Best score"} />
-                            <WidgetCard number={items.data.nbrCategories} category={"Category"} />
-                            <WidgetCard number={items.data.nbrAnsweredQuestions} category={"Answered questions"} />
+                            <WidgetCard number={items.results.nbrGames} category={"Games"} />
+                            <WidgetCard number={items.results.bestScore} category={"Best score"} />
+                            <WidgetCard number={items.results.nbrCategories} category={"Category"} />
+                            <WidgetCard number={items.results.nbrAnsweredQuestions} category={"Answered questions"} />
                         </div>
 
                         <div className={"mt-25"}>

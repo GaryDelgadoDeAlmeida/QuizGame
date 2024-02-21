@@ -55,17 +55,23 @@ class GameController extends AbstractController
     public function post_user_game(Request $request) : JsonResponse {
         $jsonContent = json_decode($request->getContent(), true);
         if(!$jsonContent) {
-            return $this->json([], Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->json([
+                "message" => "An error has been encountered with the sended body"
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         try {
-            $fields = [
-                "category" => "",
-                "user" => $this->user,
-            ];
+            $fields = $this->gameManager->checkFields($jsonContent);
+            if(empty($fields)) {
+                throw new \Exception("An error has been encountered with the sended body", Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
+
+            $game = $this->gameManager->fillGame($fields, $this->user);
+            if(is_string($game)) {
+                throw new \Exception($game, Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
         } catch(\Exception $e) {
             return $this->json([
-                "code" => Response::HTTP_INTERNAL_SERVER_ERROR,
                 "message" => $e->getMessage()
             ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -78,10 +84,7 @@ class GameController extends AbstractController
         $game = $this->gameRepository->find($gameID);
         if(!$game) {
             return $this->json([
-                "data" => [
-                    "code" => Response::HTTP_NOT_FOUND,
-                    "message" => "Game not found"
-                ]
+                "message" => "Game not found"
             ], Response::HTTP_NOT_FOUND);
         }
 
@@ -92,26 +95,60 @@ class GameController extends AbstractController
 
     #[Route("/game/questions", name: "get_game_questions", methods: ["GET"])]
     public function get_game_questions(Request $request) : JsonResponse {
-        $gameType = $request->get("gameType", "standard");
-        $question = [];
-        
-        if($gameType == "challenge") {
-            $question = $this->questionRepository->findBy([], ["id" => "DESC"], 1);
-        } else {
-            $category = $request->get("category", "");
-            $nbrQuestions = $request->get("nbr_questions");
-            $nbrQuestions = is_numeric($nbrQuestions) ? $nbrQuestions : 10;
-            $question = $this->questionRepository->getQuestionsForGame($category, $nbrQuestions);
-        }
+        $mode = $request->get("mode", "standard");
+        $category = $request->get("category", "");
+        $nbrQuestions = $request->get("nbr_questions");
+        $nbrQuestions = is_numeric($nbrQuestions) ? $nbrQuestions : 10;
 
         return $this->json([
-            "results" => $this->serializeManager->serializeContent($question)
+            "results" => $this->serializeManager->serializeContent(
+                $this->questionRepository->getQuestionsForGame($category, $nbrQuestions)
+            )
         ]);
+    }
+
+    #[Route("/game/standard", name: "post_game_standard", methods: ["POST"])]
+    public function post_game_standard(Request $request) : JsonResponse {
+        return $this->json([
+            "results" => [
+                "message" => "Route under construction"
+            ]
+        // ], Response::HTTP_CREATED);
+        ], Response::HTTP_OK);
     }
 
     #[Route("/game/challenge", name: "get_game_challenge", methods: ["GET"])]
     public function get_game_challenge(): JsonResponse {
-        // 
+        return $this->json([
+            "results" => $this->serializeManager->serializeContent(
+                $this->questionRepository->findBy([], ["id" => "DESC"], 1)
+            )
+        ]);
+    }
+
+    #[Route("/game/challenge", name: "post_game_challenge", methods: ["POST"])]
+    public function post_game_challenge(Request $request) : JsonResponse {
+        $jsonContent = json_decode($request->getContent(), true);
+        if(!$jsonContent) {
+            return $this->json([
+                "message" => "Has error has been encountered with the sended body"
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        try {
+            // 
+        } catch(\Exception $e) {
+            return $this->json([
+                "message" => $e->getMessage()
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        return $this->json([
+            "results" => [
+                "message" => "Route under construction"
+            ]
+        // ], Response::HTTP_CREATED);
+        ], Response::HTTP_OK);
     }
 
     #[Route("/game/latest", name: "get_latest_game", methods: ["GET"])]

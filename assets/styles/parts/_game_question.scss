@@ -10,6 +10,31 @@
         flex-direction: column;
         justify-content: center;
 
+        .header {
+            display: flex;
+
+            .-category, .-game-mode, .-nbr-questions {
+                flex: 1;
+                margin: auto 0;
+                font-size: 1.5rem;
+                color: var(--c-palette-four);
+            }
+
+            .-category {
+                text-align: left;
+                text-transform: capitalize;
+            }
+
+            .-game-mode {
+                text-align: center;
+                text-transform: capitalize;
+            }
+
+            .-nbr-questions {
+                text-align: right;
+            }
+        }
+
         .question {
             height: 130px;
             display: flex;

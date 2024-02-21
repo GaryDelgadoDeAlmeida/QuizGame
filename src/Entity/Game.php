@@ -21,6 +21,9 @@ class Game
     #[ORM\ManyToOne(inversedBy: 'games')]
     private ?Category $category = null;
 
+    #[ORM\Column(length: 20)]
+    private ?string $mode = null;
+
     #[ORM\Column]
     private ?int $score = 0;
 
@@ -66,6 +69,18 @@ class Game
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getMode(): ?string
+    {
+        return $this->mode;
+    }
+
+    public function setMode(string $mode): static
+    {
+        $this->mode = $mode;
 
         return $this;
     }

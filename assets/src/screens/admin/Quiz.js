@@ -5,21 +5,23 @@ import Notification from "../../components/parts/Notification";
 import PrivateRessource from "../../components/utils/PrivateRessource";
 import { findParent } from "../../components/utils/DomControl";
 import axios from "axios";
+import Pagination from "../../components/parts/Pagination";
+import SearchQuestionForm from "../../components/forms/SearchQuestionForm";
 
 export default function Quiz() {
 
     const user = JSON.parse(localStorage.getItem("user"))
     const navigate = useNavigate()
+
+    const [search, setSearch] = useState("")
     const [offset, setOffset] = useState(1)
-    const { loading, items: questions, load, error } = PrivateRessource(`${window.location.origin}/api/questions?offset=${offset}`)
+    const { loading, items: questions, load, error } = PrivateRessource(`${window.location.origin}/api/questions?offset=${offset}&search=${search}`)
 
     useEffect(() => {
         load()
+
+        return () => {}
     }, [offset])
-    
-    const handlePagination = (e) => {
-        setOffset(parseInt(e.target.innerHTML))
-    }
 
     const handleRemove = (e) => {
         const questionItem = findParent(e.currentTarget, "questionItem")
@@ -62,11 +64,18 @@ export default function Quiz() {
         ;
     }
 
-    console.log(questions)
+    const handleSearchFormChange = (value) => {
+        setSearch(value)
+        setOffset(1)
+    }
 
     return (
         <HeaderAdmin>
             <Link className={"btn btn-palette-four"} to={"/admin/quiz/create"}>Add a question</Link>
+
+            <div className={"mt-25"}>
+                <SearchQuestionForm setSearch={handleSearchFormChange} />
+            </div>
 
             <div className={"mt-25"}>
                 {!loading ? (
@@ -121,19 +130,11 @@ export default function Quiz() {
                             </tbody>
                         </table>
 
-                        {offset > 0 && offset <= questions.maxOffset && questions.maxOffset > 1 && (
-                            <div className={"pagination"}>
-                                {offset - 1 > 0 && (
-                                    <button className={"item"} onClick={(e) => handlePagination(e)}>{offset - 1}</button>
-                                )}
-                                
-                                <button className={"item current-page"}>{offset}</button>
-                                
-                                {offset + 1 <= questions.maxOffset && (
-                                    <button className={"item"} onClick={(e) => handlePagination(e)}>{offset + 1}</button>
-                                )}
-                            </div>
-                        )}
+                        <Pagination 
+                            offset={offset} 
+                            maxOffset={questions.maxOffset} 
+                            setOffset={setOffset}
+                        />
                     </>
                 ) : (
                     <Notification classname={"information"} message={"Loading ..."} />

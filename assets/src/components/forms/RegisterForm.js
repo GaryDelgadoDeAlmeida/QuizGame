@@ -18,9 +18,14 @@ export default function RegisterForm() {
     })
 
     const handleChange = (e, fieldName) => {
+        let fieldValue = e.target.value
+        if(fieldName == "agreements") {
+            fieldValue = e.target.checked
+        }
+
         setCredentials({
             ...credentials,
-            [fieldName]: fieldName == "agreements" ? e.target.checked : e.target.value
+            [fieldName]: fieldValue
         })
     }
 
@@ -28,10 +33,11 @@ export default function RegisterForm() {
         e.preventDefault()
 
         axios
-            .post(`${window.location.origin}/api/register`, credentials, {
+            .post(`${window.location.origin}/api/user`, credentials, {
                 headers: {
                     "Content-Type": "application/json",
-                    "Accept": "application/json"
+                    "Accept": "application/json",
+                    "Authorization": ""
                 }
             })
             .then((response) => {
@@ -39,7 +45,7 @@ export default function RegisterForm() {
                     response,
                     response.data,
                 )
-                setFormResponse({classname: "success", message: ""})
+                setFormResponse({classname: "success", message: "Your account has been successfully created"})
             })
             .catch((error) => {
                 console.log(error.response.data)
@@ -144,7 +150,7 @@ export default function RegisterForm() {
                         <input 
                             type={"checkbox"} 
                             onChange={(e) => handleChange(e, "agreements")} 
-                            checked={credentials.agreement}
+                            value={credentials.agreement}
                             required 
                         />
                         <span>I agree with the conditional terms of use</span>

@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import Header from "../../components/parts/Header";
+import BestScoreCard from "../../components/parts/BestScoreCard";
 import ContactForm from "../../components/forms/ContactForm";
 import NewsletterForm from "../../components/forms/NewsletterForm";
 import ProtectedRessource from "../../components/utils/ProtectedRessource";
+import Notification from "../../components/parts/Notification";
 
 export default function Home() {
 
@@ -89,8 +91,23 @@ export default function Home() {
                     <h2 className={"page-title"}>Défiez le monde et obtenez le podium</h2>
 
                     <div className={"page-section-content mw-800px m-auto"}>
+
+                        {!loading && (
+                            Object.keys(items.results ?? []).length > 0 ? (
+                                Object.values(items.results.bestScore).map((item, index) => (
+                                    <BestScoreCard 
+                                        key={index} 
+                                        position={index + 1} 
+                                        username={item.user.username}
+                                        score={item.score}
+                                    />
+                                ))
+                            ) : (
+                                <Notification classname={"information"} message={"Il n'y a aucune partie enregistré à afficher"} />
+                            )
+                        )}
                         
-                        <div className={"best-score-card -first"}>
+                        {/* <div className={"best-score-card -first"}>
                             <div className={"m-tb-auto"}>
                                 <img src={`${window.location.origin}/content/svg/medal-gold-winner.svg`} alt={""} />
                             </div>
@@ -144,7 +161,7 @@ export default function Home() {
                             <div className={"m-tb-auto"}>
                                 <span>100 points</span>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

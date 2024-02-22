@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/api/general', name: 'api_general_')]
 class GeneralController extends AbstractController
 {
-    private User $user;
+    private ?User $user;
     private SerializeManager $serializeManager;
     private UserRepository $userRepository;
     private GameRepository $gameRepository;
@@ -32,7 +32,7 @@ class GeneralController extends AbstractController
         CategoryRepository $categoryRepository,
         QuestionRepository $questionRepository,
     ) {
-        $this->user = $security->getUser();
+        $this->user = $security->getUser() ?? null;
         $this->serializeManager = $serializeManager;
         $this->userRepository = $userRepository;
         $this->gameRepository = $gameRepository;

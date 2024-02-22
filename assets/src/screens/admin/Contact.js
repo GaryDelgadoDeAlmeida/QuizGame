@@ -5,6 +5,7 @@ import Notification from "../../components/parts/Notification";
 import PrivateRessource from "../../components/utils/PrivateRessource";
 import { findParent } from "../../components/utils/DomControl"
 import axios from "axios";
+import Pagination from "../../components/parts/Pagination";
 
 export default function Contact() {
 
@@ -126,27 +127,11 @@ export default function Contact() {
                             </tbody>
                         </table>
 
-                        {offset > 0 && offset <= contacts.maxOffset && contacts.maxOffset > 1 && (
-                            <div className={"pagination"}>
-                                {offset - 1 > 0 && (
-                                    <>
-                                        <button className={"item"} onClick={(e) => handlePagination(e, 1)}>&laquo;</button>
-                                        <button className={"item"} onClick={(e) => handlePagination(e, offset - 1)}>&lsaquo;</button>
-                                        <button className={"item"} onClick={(e) => handlePagination(e, offset - 1)}>1</button>
-                                    </>
-                                )}
-
-                                <button className={"item current-page"}>{offset}</button>
-                                
-                                {offset + 1 <= contacts.maxOffset && (
-                                    <>
-                                        <button className={"item"} onClick={(e) => handlePagination(e, offset + 1)}>3</button>
-                                        <button className={"item"} onClick={(e) => handlePagination(e, offset + 1)}>&rsaquo;</button>
-                                        <button className={"item"} onClick={(e) => handlePagination(e, contacts.maxOffset)}>&raquo;</button>
-                                    </>
-                                )}
-                            </div>
-                        )}
+                        <Pagination 
+                            offset={offset}
+                            maxOffset={contacts.maxOffset}
+                            setOffset={setOffset}
+                        />
                     </div>
                 </>
             ) : (

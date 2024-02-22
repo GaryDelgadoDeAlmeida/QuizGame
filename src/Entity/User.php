@@ -171,9 +171,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $categories = [];
 
         foreach($this->games as $game) {
-            if(!in_array($game->getCategory(), $categories)) {
-                $categories[] = $game->getCategory();
+            $category = $game->getCategory();
+
+            if(!isset($categories[$category->getId()])) {
+                $categories[$category->getId()] = [
+                    "category" => $category,
+                    "nbrGames" => 0
+                ];
             }
+
+            $categories[$category->getId()]["nbrGames"] += 1;
         }
 
         return $categories;

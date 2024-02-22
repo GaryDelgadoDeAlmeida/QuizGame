@@ -56,6 +56,10 @@
             padding: 15px;
             color: var(--c-white);
             width: calc(100% - 200px);
+
+            @include tablet {
+                width: auto;
+            }
         }
     }
 }

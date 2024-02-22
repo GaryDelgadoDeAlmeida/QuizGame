@@ -3,6 +3,7 @@
 namespace App\Controller\API;
 
 use App\Entity\User;
+use App\Enum\GameModeEnum;
 use App\Manager\UserManager;
 use App\Manager\SerializeManager;
 use App\Repository\GameRepository;
@@ -99,8 +100,8 @@ class UserController extends AbstractController
         return $this->json([
             "results" => $this->serializeManager->serializeContent([
                 "user" => $this->user,
-                "pastCompetitions" => [],
-                "pastGames" => $this->gameRepository->findBy(["user" => $this->user], ["created_at" => "DESC"]),
+                "pastCompetitions" => $this->gameRepository->findBy(["user" => $this->user, "mode" => GameModeEnum::MODE_CHALLENGE], ["created_at" => "DESC"]),
+                "pastGames" => $this->gameRepository->findBy(["user" => $this->user, "mode" => GameModeEnum::MODE_STANDARD], ["created_at" => "DESC"]),
                 "pastScores" => $this->gameRepository->findBy(["user" => $this->user], ["score" => "DESC"]),
                 "pastPlayedCategories" => $this->user->getPlayedCategories()
             ])

@@ -3,7 +3,6 @@ import UserForm from "../../components/forms/UserForm";
 import HeaderUser from "../../components/parts/HeaderUser";
 import PastGame from "../../components/parts/PastGame";
 import PastGameCategory from "../../components/parts/PastGameCategory";
-import PastScore from "../../components/parts/PastScore";
 import PastCompetition from "../../components/parts/PastCompetition";
 import PrivateRessource from "../../components/utils/PrivateRessource"
 import Notification from "../../components/parts/Notification";
@@ -19,16 +18,12 @@ export default function Profile() {
                 title: "Game history"
             },
             {
-                value: "category",
-                title: "Category"
-            },
-            {
-                value: "scores",
-                title: "Scores"
-            },
-            {
                 value: "competition",
                 title: "Competition"
+            },
+            {
+                value: "category",
+                title: "Category"
             }
         ]
     })
@@ -64,19 +59,15 @@ export default function Profile() {
                                 </div>
                                 <div className={"-tab-content"}>
                                     {credentials.active == "history" && (
-                                        <PastGame games={items.results.pastGames} />
+                                        <PastGame games={Object.values(items.results.pastGames)} />
                                     )}
 
                                     {credentials.active == "category" && (
-                                        <PastGameCategory categories={items.results.pastPlayedCategories} />
-                                    )}
-                                    
-                                    {credentials.active == "scores" && (
-                                        <PastScore scores={items.results.pastScores} />
+                                        <PastGameCategory categories={Object.values(items.results.pastPlayedCategories)} />
                                     )}
                                     
                                     {credentials.active == "competition" && (
-                                        <PastCompetition competitions={items.results.pastCompetitions} />
+                                        <PastCompetition competitions={Object.values(items.results.pastCompetitions)} />
                                     )}
                                 </div>
                             </div>

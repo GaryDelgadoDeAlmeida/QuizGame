@@ -26,15 +26,21 @@
         padding: 15px;
         display: flex;
         max-width: 500px;
-        border-radius: 15px;
         flex-direction: column;
-        background-color: var(--c-white);
+        color: var(--c-palette-four);
+        background-color: var(--c-palette-one);
 
         .popup-content {
             height: auto;
     
             @include mobile {
                 margin: 0;
+            }
+
+            .form {
+                select, input, textarea {
+                    color: var(--c-palette-four);
+                }
             }
         }
     }

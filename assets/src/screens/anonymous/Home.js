@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import Header from "../../components/parts/Header";
+import Notification from "../../components/parts/Notification";
 import BestScoreCard from "../../components/parts/BestScoreCard";
 import ContactForm from "../../components/forms/ContactForm";
 import NewsletterForm from "../../components/forms/NewsletterForm";
 import ProtectedRessource from "../../components/utils/ProtectedRessource";
-import Notification from "../../components/parts/Notification";
 
 export default function Home() {
 
@@ -93,7 +93,7 @@ export default function Home() {
                     <div className={"page-section-content mw-800px m-auto"}>
 
                         {!loading && (
-                            Object.keys(items.results ?? []).length > 0 ? (
+                            Object.keys(items.results ? items.results.bestScore : []).length > 0 ? (
                                 Object.values(items.results.bestScore).map((item, index) => (
                                     <BestScoreCard 
                                         key={index} 
@@ -103,7 +103,10 @@ export default function Home() {
                                     />
                                 ))
                             ) : (
-                                <Notification classname={"information"} message={"Il n'y a aucune partie enregistré à afficher"} />
+                                <Notification 
+                                    classname={"information"} 
+                                    message={"Il n'y a aucune partie enregistrée à afficher"} 
+                                />
                             )
                         )}
                         

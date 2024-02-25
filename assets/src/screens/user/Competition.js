@@ -49,7 +49,7 @@ export default function Competition() {
                                 <td className={"-nbr-questions"}>10</td>
                                 <td className={"-score"}>100</td>
                                 <td className={"-actions"}>
-                                    <Link className={"btn btn-palette-four -inline-flex"} to={"/game/1"}>
+                                    <Link className={"btn btn-palette-four -inline-flex"} to={"/user/game/1"}>
                                         <span>See more</span>
                                     </Link>
                                 </td>

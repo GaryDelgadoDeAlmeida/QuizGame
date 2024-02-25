@@ -158,7 +158,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $categories = [];
 
         foreach($this->games as $game) {
-            if(!in_array($game->getCategory()->getLabelKey(), $categories)) {
+            $category = $game->getCategory();
+            if($category && !in_array($category->getLabelKey(), $categories)) {
                 $count += 1;
                 $categories[] = $game->getCategory()->getLabelKey();
             }
@@ -173,14 +174,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         foreach($this->games as $game) {
             $category = $game->getCategory();
 
-            if(!isset($categories[$category->getId()])) {
-                $categories[$category->getId()] = [
-                    "category" => $category,
-                    "nbrGames" => 0
-                ];
+            if($category) {
+                if(!isset($categories[$category->getId()])) {
+                    $categories[$category->getId()] = [
+                        "category" => $category,
+                        "nbrGames" => 0
+                    ];
+                }
+    
+                $categories[$category->getId()]["nbrGames"] += 1;
             }
-
-            $categories[$category->getId()]["nbrGames"] += 1;
         }
 
         return $categories;

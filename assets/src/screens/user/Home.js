@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import Badge from "../../components/parts/Badge";
 import HeaderUser from "../../components/parts/HeaderUser";
+import WidgetCard from "../../components/parts/WidgetCard";
 import Notification from "../../components/parts/Notification";
 import PrivateRessource from "../../components/utils/PrivateRessource";
-import { Link } from "react-router-dom";
-import WidgetCard from "../../components/parts/WidgetCard";
-import Badge from "../../components/parts/Badge";
+import { formatDate } from "../../components/utils/DomControl";
 
 export default function Home() {
 
@@ -12,24 +13,6 @@ export default function Home() {
     useEffect(() => {
         load()
     }, [])
-
-    function tbody() {
-        const content = []
-        for(let $i = 0; $i < 7; $i++) {
-            content.push((
-                <tr key={$i}>
-                    <td>17/01/2024</td>
-                    <td>Education</td>
-                    <td>
-                        <Badge text={"TERMINATED"} />
-                    </td>
-                    <td>70 / 100</td>
-                </tr>
-            ))
-        }
-        
-        return content
-    }
 
     return (
         <HeaderUser>
@@ -54,24 +37,22 @@ export default function Home() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {tbody()}
-                                    
-                                    {/* {Object.keys(items.latestGames ?? []).length > 0 ? (
-                                        Object.values(items.latestGames).map((game, index) => (
+                                    {Object.keys(items.results ? items.results.latestGames : []).length > 0 ? (
+                                        Object.values(items.results.latestGames).map((game, index) => (
                                             <tr key={index}>
-                                                <td className={"-date"}>{game.created_at}</td>
-                                                <td className={"-category"}>
-                                                    <Badge text={game.category.label} />
+                                                <td className={"-date"}>{formatDate(game.createdAt, "fr")}</td>
+                                                <td className={"-category"}>{game.category ? game.category.label : "N/A"}</td>
+                                                <td className={"-status"}>
+                                                    <Badge text={game.status.toUpperCase()} />
                                                 </td>
-                                                <td className={"-status"}>{game.category.status}</td>
-                                                <td className={"-score"}>{game.score}/{item.gameDetails.length}</td>
+                                                <td className={"-score"}>{game.score}/{game.gameDetails.length}</td>
                                             </tr>
                                         ))
                                     ) : (
                                         <tr>
                                             <td className={"-message"} colSpan={4}>There is no game registered</td>
                                         </tr>
-                                    )} */}
+                                    )}
                                 </tbody>
                             </table>
 

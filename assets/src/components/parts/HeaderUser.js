@@ -33,9 +33,9 @@ export default function HeaderUser(props) {
                             </Link>
                         </li>
                         <li>
-                            <Link to={"/user/best-score"}>
+                            <Link to={"/user/game-history"}>
                                 <img src={`${window.location.origin}/content/svg/stars-white.svg`} alt={""} />
-                                <span>Best score</span>
+                                <span>History</span>
                             </Link>
                         </li>
                         <li>
@@ -86,9 +86,9 @@ export default function HeaderUser(props) {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link to={"/user/best-score"}>
+                                        <Link to={"/user/game-history"}>
                                             <img src={`${window.location.origin}/content/svg/stars-white.svg`} alt={""} />
-                                            <span>Best score</span>
+                                            <span>History</span>
                                         </Link>
                                     </li>
                                     <li>

@@ -10,8 +10,9 @@ import NotFound from "./anonymous/NotFound";
 // User
 import UserHome from "./user/Home";
 import UserProfile from "./user/Profile";
-import UserBestScore from "./user/BestScore";
+import UserHistory from "./user/History";
 import UserGame from "./user/Game";
+import UserHistoryDetail from "./user/HistoryDetail";
 import UserGameStart from "./user/GameStart";
 import UserCompetition from "./user/Competition";
 
@@ -44,7 +45,8 @@ export default function RouteConfig() {
             {/* User */}
             <Route path={"/user"} element={<UserHome />} />
             <Route path={"/user/profile"} element={<UserProfile />} />
-            <Route path={"/user/best-score"} element={<UserBestScore />} />
+            <Route path={"/user/game-history"} element={<UserHistory />} />
+            <Route path={"/user/game-history/:gameID"} element={<UserHistoryDetail />} />
             <Route path={"/user/game"} element={<UserGame />} />
             <Route path={"/user/game/start"} element={<UserGameStart />} />
             <Route path={"/user/competition"} element={<UserCompetition />} />

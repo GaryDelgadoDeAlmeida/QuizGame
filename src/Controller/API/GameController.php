@@ -3,6 +3,9 @@
 namespace App\Controller\API;
 
 use App\Entity\User;
+use App\Enum\GameEnum;
+use App\Enum\StatusEnum;
+use App\Manager\GameManager;
 use App\Manager\SerializeManager;
 use App\Repository\GameRepository;
 use App\Repository\CategoryRepository;
@@ -18,6 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class GameController extends AbstractController
 {
     private User $user;
+    private GameManager $gameManager;
     private SerializeManager $serializeManager;
     private GameRepository $gameRepository;
     private CategoryRepository $categoryRepository;
@@ -25,12 +29,14 @@ class GameController extends AbstractController
     
     function __construct(
         Security $security, 
+        GameManager $gameManager,
         SerializeManager $serializeManager,
         GameRepository $gameRepository,
         CategoryRepository $categoryRepository,
         QuestionRepository $questionRepository,
     ) {
         $this->user = $security->getUser();
+        $this->gameManager = $gameManager;
         $this->serializeManager = $serializeManager;
         $this->gameRepository = $gameRepository;
         $this->categoryRepository = $categoryRepository;
@@ -61,6 +67,7 @@ class GameController extends AbstractController
         }
 
         try {
+            $jsonContent[GameEnum::GAME_STATUS] = StatusEnum::STATUS_TERMINATED;
             $fields = $this->gameManager->checkFields($jsonContent);
             if(empty($fields)) {
                 throw new \Exception("An error has been encountered with the sended body", Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -69,6 +76,12 @@ class GameController extends AbstractController
             $game = $this->gameManager->fillGame($fields, $this->user);
             if(is_string($game)) {
                 throw new \Exception($game, Response::HTTP_INTERNAL_SERVER_ERROR);
+            }
+
+            foreach($fields[GameEnum::GAME_DETAILS] as $gameDetail) {
+                if(is_string($this->gameManager->fillGameDetail($gameDetail, $game))) {
+                    continue;
+                }
             }
         } catch(\Exception $e) {
             return $this->json([
@@ -89,7 +102,11 @@ class GameController extends AbstractController
         }
 
         return $this->json([
-            "results" => $this->serializeManager->serializeContent($game)
+            "results" => [
+                "goodAnswers" => 0,
+                "badAnswers" => 0,
+                "game" => $this->serializeManager->serializeContent($game)
+            ]
         ], Response::HTTP_OK);
     }
 

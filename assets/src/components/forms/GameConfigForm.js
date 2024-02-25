@@ -100,7 +100,6 @@ export default function GameConfigForm({category}) {
                 <div className={"form-field"}>
                     <label htmlFor={"nbr-questions"}>Number of questions</label>
                     <select id={"nbr-questions"} onChange={(e) => handleChange(e, "nbr_questions")}>
-                        <option value={""} defaultChecked>Select a number of question</option>
                         {datas.questionQuantity.map((item, index) => (
                             <option key={index} value={item} selected={item == credentials.nbr_questions ? true : false}>{item}</option>
                         ))}
@@ -109,7 +108,6 @@ export default function GameConfigForm({category}) {
                 <div className={"form-field"}>
                     <label htmlFor={"mode"}>Mode</label>
                     <select id={"mode"} onChange={(e) => handleChange(e, "mode")}>
-                        <option value={""} defaultChecked>Select a mode for the quiz game</option>
                         {datas.modes.map((item, index) => (
                             <option key={index} value={item.value} selected={item.value == credentials.mode ? true : false}>{item.text}</option>
                         ))}
@@ -118,7 +116,6 @@ export default function GameConfigForm({category}) {
                 <div className={"form-field"}>
                     <label htmlFor={"difficulty"}>Difficulty</label>
                     <select id={"difficulty"} onChange={(e) => handleChange(e, "difficulty")}>
-                        <option value={""} defaultChecked>Select a difficulty for the quiz game</option>
                         {datas.difficulties.map((item, index) => (
                             <option key={index} value={item} selected={item == credentials.difficulty ? true : false}>{item}</option>
                         ))}

@@ -23,9 +23,6 @@ class GameDetail
     private ?Answer $given_answer = null;
 
     #[ORM\Column]
-    private ?bool $is_answer = null;
-
-    #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
     public function getId(): ?int
@@ -65,18 +62,6 @@ class GameDetail
     public function setGivenAnswer(?Answer $given_answer): static
     {
         $this->given_answer = $given_answer;
-
-        return $this;
-    }
-
-    public function isIsAnswer(): ?bool
-    {
-        return $this->is_answer;
-    }
-
-    public function setIsAnswer(bool $is_answer): static
-    {
-        $this->is_answer = $is_answer;
 
         return $this;
     }

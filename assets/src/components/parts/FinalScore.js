@@ -6,7 +6,7 @@ export default function FinalScore({credentials}) {
         <div className={"score-card"}>
             <div className={"card-widget"}>
                 <p>La partie est terminée.</p>
-                <p className={"score"}>{credentials.score} / {Object.keys(credentials.questions ?? []).length}</p>
+                <p className={"score"}>{credentials.score} / {Object.keys(credentials.details ?? []).length}</p>
                 <div className={"score-details"}>
                     <span>Vous avez faits :</span>
                     <div className={"d-flex"}>
@@ -24,7 +24,7 @@ export default function FinalScore({credentials}) {
                         </div>
                         <div className={"item-row"}>
                             <p className={"d-column"}>
-                                <span className={"answered-questions"}>{Object.keys(credentials.questions).length}</span>
+                                <span className={"answered-questions"}>{Object.keys(credentials.details).length}</span>
                                 <span>question(s) répondue(s)</span>
                             </p>
                         </div>

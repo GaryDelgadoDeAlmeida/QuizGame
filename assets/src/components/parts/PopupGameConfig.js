@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import GameConfigForm from "../forms/GameConfigForm";
 
 export default function PopupGameConfig({category, handleClose}) {

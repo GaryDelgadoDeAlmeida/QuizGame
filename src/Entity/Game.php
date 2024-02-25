@@ -30,7 +30,7 @@ class Game
     #[ORM\Column(length: 255)]
     private ?string $status = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updated_at = null;
 
     #[ORM\Column]

@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Badge from "../../components/parts/Badge";
+import Pagination from "../../components/parts/Pagination";
 import HeaderUser from "../../components/parts/HeaderUser";
 import PrivateRessource from "../../components/utils/PrivateRessource";
+import { formatDate } from "../../components/utils/DomControl";
 
-export default function BestScore() {
+export default function History() {
 
     const [offset, setOffset] = useState(1)
     const { loading, items, load, error } = PrivateRessource(`${window.location.origin}/api/games?offset=${offset}`)
     useEffect(() => {
         load()
     }, [offset])
-
-    const handlePagination = (e, newOffset) => {
-        setOffset(newOffset)
-    }
 
     return (
         <HeaderUser>
@@ -30,21 +29,21 @@ export default function BestScore() {
                     </thead>
                     <tbody>
                         {!loading ? (
-                            Object.keys(items.data ?? []).length > 0 ? (
-                                Object.values(items.data).map((game, index) => (
+                            Object.keys(items.results ?? []).length > 0 ? (
+                                Object.values(items.results).map((game, index) => (
                                     <tr key={index}>
-                                        <td className={"-date"}>{game.created_at}</td>
-                                        <td className={"-category"}>{game.category.label}</td>
-                                        <td className={"-category"}>
-                                            <Badge text={game.category.label} />
+                                        <td className={"-date"}>{formatDate(game.createdAt, "fr")}</td>
+                                        <td className={"-category"}>{game.category ? game.category.label : "N/A"}</td>
+                                        <td className={"-status"}>
+                                            <Badge text={game.status.toUpperCase()} />
                                         </td>
-                                        <td className={"-score"}>{game.score}/{item.gameDetails.length}</td>
+                                        <td className={"-score"}>{game.score}/{game.gameDetails.length}</td>
                                         <td className={"-actions"}>
                                             <Link 
                                                 className={"btn btn-blue -inline-flex"} 
-                                                to={"/user/game/" + game.id}
+                                                to={`/user/game-history/${game.id}`}
                                             >
-                                                <img src={`${window.location.origin}/content/svg/eye.svg`} alt={""} />
+                                                <img src={`${window.location.origin}/content/svg/eye-white.svg`} alt={""} />
                                             </Link>
                                         </td>
                                     </tr>
@@ -62,25 +61,11 @@ export default function BestScore() {
                     </tbody>
                 </table>
 
-                {offset > 0 && offset <= items.maxOffset && items.maxOffset > 1 && (
-                    <div className={"pagination"}>
-                        {offset - 1 > 0 && (
-                            <>
-                                <button className={"item"} onClick={(e) => handlePagination(e, 1)}>&laquo;</button>
-                                <button className={"item"} onClick={(e) => handlePagination(e, offset - 1)}>{offset - 1}</button>
-                            </>
-                        )}
-
-                        <button className={"item current-page"}>{offset}</button>
-                        
-                        {offset + 1 <= items.maxOffset && (
-                            <>
-                                <button className={"item"} onClick={(e) => handlePagination(e, offset + 1)}>{offset + 1}</button>
-                                <button className={"item"} onClick={(e) => handlePagination(e, categories.maxOffset)}>&raquo;</button>
-                            </>
-                        )}
-                    </div>
-                )}
+                <Pagination 
+                    offset={offset}
+                    setOffset={setOffset}
+                    maxOffset={items.maxOffset}
+                />
             </div>
         </HeaderUser>
     )

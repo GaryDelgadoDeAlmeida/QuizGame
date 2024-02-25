@@ -9,6 +9,10 @@ abstract class GameEnum {
     public const GAME_MODE = "mode";
     public const GAME_SCORE = "score";
     public const GAME_STATUS = "status";
+    public const GAME_DETAILS = "details";
+    
+    public const GAME_GIVEN_ANSWER = "given_answer";
+    public const GAME_GIVEN_QUESTION = "given_question";
 
     protected static array $typeName = [
         self::GAME_USER => "user",
@@ -16,6 +20,7 @@ abstract class GameEnum {
         self::GAME_MODE => "mode",
         self::GAME_SCORE => "score",
         self::GAME_STATUS => "status",
+        self::GAME_DETAILS => "details",
     ];
 
     public static function getAvailableChoice() : array {
@@ -25,6 +30,7 @@ abstract class GameEnum {
             self::GAME_MODE,
             self::GAME_SCORE,
             self::GAME_STATUS,
+            self::GAME_DETAILS,
         ];
     }
 

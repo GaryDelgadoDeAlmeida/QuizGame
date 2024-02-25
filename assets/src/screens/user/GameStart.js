@@ -22,7 +22,8 @@ export default function GameStart() {
         score: 0,
         good_answers: 0,
         bad_answers: 0,
-        questions: []
+        mode: state.mode ?? "standard",
+        details: []
     })
     const [answer, setAnswer] = useState("")
     const { loading, items, load, error } = PrivateResources(`${window.location.origin}/api/game/questions?` + new URLSearchParams(state).toString())
@@ -31,15 +32,15 @@ export default function GameStart() {
         load()
     }, [])
 
-    // useEffect(() => {
-    //     // If there is no more question then if the end of the game
-    //     if(!items.results[offset]) {
-    //         handleEndGame()
-    //     }
-    // }, [offset])
+    useEffect(() => {
+        // If there is no more question then if the end of the game
+        if(items.results && !items.results[offset]) {
+            handleEndGame()
+        }
+    }, [offset])
 
     const handleAnswer = (e) => {
-        if(Object.keys(credentials.questions[offset] ?? []).length > 0) {
+        if(Object.keys(credentials.details[offset] ?? []).length > 0) {
             return
         }
 
@@ -64,8 +65,8 @@ export default function GameStart() {
             score: current_score,
             bad_answers: bad_answers,
             good_answers: good_answers,
-            questions: {
-                ...credentials.questions,
+            details: {
+                ...credentials.details,
                 [offset]: {
                     given_answer: answer,
                     question_id: e.target.getAttribute("data-questionid")
@@ -81,6 +82,7 @@ export default function GameStart() {
         setOffset(offset + 1)
     }
 
+    // Final Stage - Used when the game come to end
     const handleEndGame = () => {
         axios
             .post(`${window.location.origin}/api/game`, credentials, {
@@ -90,8 +92,12 @@ export default function GameStart() {
                     "Authorization": "Bearer " + user.token
                 }
             })
-            .then((response) => {})
-            .catch((error) => {})
+            .then((response) => {
+                console.log(response)
+            })
+            .catch((error) => {
+                console.log(error)
+            })
         ;
     }
 
@@ -127,7 +133,7 @@ export default function GameStart() {
                                         {items.results[offset].randomAnswers.map((item, index) => (
                                             <Answer 
                                                 key={index}
-                                                credentialsQuestion={credentials.questions[offset] ?? []}
+                                                credentialsQuestion={credentials.details[offset] ?? []}
                                                 givenAnswer={answer}
                                                 answer={item.answer}
                                                 isAnswer={item.isAnswer}
@@ -144,7 +150,7 @@ export default function GameStart() {
                                             disabled={answer != "" ? false : true}
                                         >Submit</button>
 
-                                        {Object.keys(credentials.questions[offset] ?? []).length > 0 && (
+                                        {Object.keys(credentials.details[offset] ?? []).length > 0 && (
                                             <button
                                                 type={"button"}
                                                 className={"btn btn-palette-four"} 

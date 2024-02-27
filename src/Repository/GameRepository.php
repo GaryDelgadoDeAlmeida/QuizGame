@@ -79,4 +79,23 @@ class GameRepository extends ServiceEntityRepository
             ->getSingleResult()["nbrAnsweredQuestions"]
         ;
     }
+
+    /**
+     * @param User user
+     * @param string mode
+     * @return Game[]
+     */
+    public function countGameByMode(User $user, string $mode) : array {
+        return $this->createQueryBuilder("game")
+            ->select("COUNT(game.id) as nbrGames")
+            ->where("game.user = :user")
+            ->andWhere("game.mode = :mode")
+            ->setParameters([
+                "user" => $user,
+                "mode" => $mode
+            ])
+            ->getQuery()
+            ->getSingleResult()["nbrGames"]
+        ;
+    }
 }

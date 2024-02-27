@@ -115,6 +115,22 @@ class UserController extends AbstractController
         ], Response::HTTP_OK);
     }
 
+    #[Route("/user/me/games", name: "get_user_profile_game", methods: ["GET"])]
+    public function get_user_profile_game(Request $request) : JsonResponse {
+        $limit = 20;
+        $offset = $request->get("offset");
+        $offset = is_numeric($offset) && $offset > 0 ? $offset : 1;
+        $mode = $request->get("mode", "standard");
+
+        return $this->json([
+            "offset" => $offset,
+            "maxOffset" => ceil($this->gameRepository->countGameByMode() / $limit),
+            "results" => $this->serializeManager->serializeContent(
+                $this->gameRepository->findBy(["user" => $this->user, "mode" => $mode], ["created_at" => "DESC"], $limit, ($offset - 1) * $limit)
+            )
+        ]);
+    }
+
     #[Route("/user/{userID}", name: "get_user", methods: ["GET"])]
     public function get_user(int $userID) : JsonResponse {
         $user = $this->userRepository->find($userID);

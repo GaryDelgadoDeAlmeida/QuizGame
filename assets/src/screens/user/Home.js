@@ -57,7 +57,7 @@ export default function Home() {
                             </table>
 
                             <div className={"mt-15 txt-right"}>
-                                <Link className={"btn btn-radient-four btn-rounded btn-space -inline-flex"} to={"/user/best-score"}>
+                                <Link className={"btn btn-radient-four btn-rounded btn-space -inline-flex"} to={"/user/game-history"}>
                                     <span>Voir plus</span>
                                     <img src={`${window.location.origin}/content/svg/arrow-right-white.svg`} alt={""} />
                                 </Link>

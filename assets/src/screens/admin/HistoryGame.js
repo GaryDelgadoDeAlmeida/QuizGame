@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import HeaderAdmin from "../../components/parts/HeaderAdmin";
-import PrivateRessource from "../../components/utils/PrivateRessource";
 import { Link } from "react-router-dom";
 import Badge from "../../components/parts/Badge";
+import Pagination from "../../components/parts/Pagination";
+import HeaderAdmin from "../../components/parts/HeaderAdmin";
+import PrivateRessource from "../../components/utils/PrivateRessource";
 
 export default function HistoryGame() {
 
@@ -60,36 +61,22 @@ export default function HistoryGame() {
                             ))
                         ) : (
                             <tr>
-                                <td className={"-message"} colSpan={4}>There is no game registered</td>
+                                <td className={"-message"} colSpan={5}>There is no game registered</td>
                             </tr>
                         )
                     ) : (
                         <tr>
-                            <td className={"-message"} colSpan={4}>Loading ...</td>
+                            <td className={"-message"} colSpan={5}>Loading ...</td>
                         </tr>
                     )}
                 </tbody>
             </table>
 
-            {games.offset > 0 && games.offset <= games.maxOffset && games.maxOffset > 1 && (
-                <div className={"pagination"}>
-                    {games.offset - 1 > 0 && (
-                        <div className={"item"}>
-                            <button onClick={(e) => handlePagination(e)}>{games.offset - 1}</button>
-                        </div>
-                    )}
-                    
-                    <div className={"item current-page"}>
-                        <span>{games.offset}</span>
-                    </div>
-                    
-                    {games.offset + 1 <= games.maxOffset && (
-                        <div className={"item"}>
-                            <button onClick={(e) => handlePagination(e)}>{games.offset + 1}</button>
-                        </div>
-                    )}
-                </div>
-            )}
+            <Pagination 
+                offset={offset}
+                setOffset={setOffset}
+                maxOffset={games.maxOffset}
+            />
         </HeaderAdmin>
     )
 }

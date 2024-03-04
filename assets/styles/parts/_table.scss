@@ -20,6 +20,10 @@
             tr {
                 height: 45px;
                 color: var(--c-palette-four);
+
+                th {
+                    padding: 10px;
+                }
             }
         }
 
@@ -133,6 +137,10 @@
                         content: "Category";
                     }
 
+                    &.-difficulty::before {
+                        content: "Difficulty";
+                    }
+
                     &.-answers::before {
                         content: "Answers";
                     }
@@ -155,8 +163,21 @@
                         content: "Nbr questions";
                     }
 
+                    &.-status::before {
+                        content: "Status";
+                    }
+
                     &.-score::before {
                         content: "Score";
+                    }
+
+                    // Contact
+                    &.-subject::before {
+                        content: "Subject";
+                    }
+
+                    &.-fullname::before {
+                        content: "Fullname";
                     }
 
                     // Common

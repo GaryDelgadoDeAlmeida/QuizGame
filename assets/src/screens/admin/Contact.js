@@ -105,10 +105,10 @@ export default function Contact() {
                                 {Object.keys(contacts.results ?? []).length > 0 ? (
                                     Object.values(contacts.results).map((item, index) => (
                                         <tr className={"-item"} key={index}>
-                                            <td>{item.subject}</td>
-                                            <td>{item.firstname} {item.lastname}</td>
-                                            <td>{item.message}</td>
-                                            <td>
+                                            <td className={"-subject"}>{item.subject}</td>
+                                            <td className={"-fullname"}>{item.firstname} {item.lastname}</td>
+                                            <td className={"-message"}>{item.message}</td>
+                                            <td className={"-actions"}>
                                                 <Link className={"btn -inline-flex"} to={`/admin/contact/${item.id}`}>
                                                     <img src={`${window.location.origin}/content/svg/eye.svg`} alt={""} />
                                                 </Link>

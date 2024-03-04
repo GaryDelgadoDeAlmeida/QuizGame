@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import WidgetCard from "../../components/parts/WidgetCard";
 import HeaderAdmin from "../../components/parts/HeaderAdmin";
 import Notification from "../../components/parts/Notification";
+import { formatDate } from "../../components/utils/DomControl";
 import PrivateResources from "../../components/utils/PrivateRessource";
 
 export default function Home() {
@@ -28,7 +29,7 @@ export default function Home() {
                                 <thead>
                                     <tr>
                                         <th>Date</th>
-                                        <th>Username</th>
+                                        <th className={"txt-left"}>Username</th>
                                         <th>Score</th>
                                     </tr>
                                 </thead>
@@ -36,9 +37,9 @@ export default function Home() {
                                     {Object.values(items.results.bestScores).length > 0 ? (
                                         Object.values(items.results.bestScores).map((item, index) => (
                                             <tr key={index}>
-                                                <td>{item.created_at}</td>
-                                                <td>{item.user.email}</td>
-                                                <td>{item.score}</td>
+                                                <td className={"-date"}>{formatDate(item.createdAt)}</td>
+                                                <td className={"-username txt-left"}>{item.user.email}</td>
+                                                <td className={"-score"}>{item.score}</td>
                                             </tr>
                                         ))
                                     ) : (

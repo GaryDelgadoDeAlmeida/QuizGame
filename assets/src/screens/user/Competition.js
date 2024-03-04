@@ -59,7 +59,7 @@ export default function Competition() {
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan={4}>You still didn't started a challenge. Why don't start one now ?</td>
+                                    <td className={"-message"} colSpan={4}>You still didn't started a challenge. Why don't start one now ?</td>
                                 </tr>
                             )}
                         </tbody>

@@ -5,6 +5,7 @@ import { findParent } from "../../components/utils/DomControl";
 import HeaderAdmin from "../../components/parts/HeaderAdmin";
 import Notification from "../../components/parts/Notification";
 import PrivateRessource from "../../components/utils/PrivateRessource";
+import Pagination from "../../components/parts/Pagination";
 
 export default function Users() {
 
@@ -102,22 +103,16 @@ export default function Users() {
                         </table>
                     </div>
 
-                    {offset > 0 && offset <= users.maxOffset && users.maxOffset > 1 && (
-                        <div className={"pagination"}>
-                            {offset - 1 > 0 && (
-                                <button className={"item"} onClick={(e) => handlePagination(e)}>{offset - 1}</button>
-                            )}
-                            
-                            <button className={"item current-page"}>{offset}</button>
-                            
-                            {offset + 1 <= maxOffset && (
-                                <button className={"item"} onClick={(e) => handlePagination(e)}>{offset + 1}</button>
-                            )}
-                        </div>
-                    )}
+                    <Pagination 
+                        offset={offset}
+                        setOffset={setOffset}
+                        maxOffset={users.maxOffset}
+                    />
                 </>
             ) : (
-                <Notification classname={"information"} message={"Loading ..."} />
+                <div className={"mt-25"}>
+                    <Notification classname={"information"} message={"Loading ..."} />
+                </div>
             )}
         </HeaderAdmin>
     )
